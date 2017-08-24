@@ -1,5 +1,5 @@
 {
-  "name": "brightcove/api",
+  "name": "otrd/brightcove-api-wrapper",
   "description": "Brightcove PHP API Wrapper",
   "keywords": ["brightcove","api"],
   "type": "library",
