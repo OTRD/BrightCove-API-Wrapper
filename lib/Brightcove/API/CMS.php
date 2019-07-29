@@ -227,4 +227,12 @@ class CMS extends API {
     $this->cmsRequest('DELETE', "/subscriptions/{$subscription_id}", NULL);
   }
 
+  /**
+   * @param     $folderId
+   * @param int $limit
+   * @return \Brightcove\Object\ObjectInterface|\Brightcove\Object\ObjectInterface[]|null
+   */
+  public function getVideosInFolder($folderId, $limit = 20){
+    return $this->cmsRequest('GET', '/folders/' . $folderId . '/videos?limit=' . $limit, Video::class, TRUE);
+  }
 }
