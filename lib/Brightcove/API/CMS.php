@@ -233,6 +233,6 @@ class CMS extends API {
    * @return \Brightcove\Object\ObjectInterface|\Brightcove\Object\ObjectInterface[]|null
    */
   public function getVideosInFolder($folderId, $limit = 20){
-    return $this->cmsRequest('GET', '/folders/' . $folderId . '/videos?limit=100' . $limit, Video::class, TRUE);
+    return $this->cmsRequest('GET', '/folders/' . $folderId . '/videos?limit=' . $limit, Video::class, TRUE);
   }
 }
