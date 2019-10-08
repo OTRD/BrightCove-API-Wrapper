@@ -1,16 +1,18 @@
 <?php
+
 namespace Brightcove\API;
 
 use Brightcove\API\Request\SubscriptionRequest;
-use Brightcove\Object\Subscription;
-use Brightcove\Object\Video\Video;
-use Brightcove\Object\Video\Source;
-use Brightcove\Object\Video\Images;
-use Brightcove\Object\Playlist;
 use Brightcove\Object\CustomFields;
+use Brightcove\Object\ObjectInterface;
+use Brightcove\Object\Playlist;
+use Brightcove\Object\Subscription;
+use Brightcove\Object\Video\Images;
+use Brightcove\Object\Video\Source;
+use Brightcove\Object\Video\Video;
 
 /**
-  * This class provides uncached read access to the data via request functions.
+ * This class provides uncached read access to the data via request functions.
  */
 class CMS extends API {
 
@@ -208,7 +210,7 @@ class CMS extends API {
    * @param string $subscription_id
    * @return Subscription
    */
-  public function getSubscription($subscription_id)  {
+  public function getSubscription($subscription_id) {
     return $this->cmsRequest('GET', "/subscriptions/{$subscription_id}", Subscription::class);
   }
 
@@ -230,9 +232,17 @@ class CMS extends API {
   /**
    * @param     $folder_id
    * @param int $limit
-   * @return \Brightcove\Object\ObjectInterface|\Brightcove\Object\ObjectInterface[]|null
+   * @return ObjectInterface|ObjectInterface[]|null
    */
-  public function getVideosInFolder($folder_id, $limit = 20){
+  public function getVideosInFolder($folder_id, $limit = 20) {
     return $this->cmsRequest('GET', '/folders/' . $folder_id . '/videos?limit=' . $limit, Video::class, TRUE);
+  }
+
+  /**
+   * @param string $folder_id
+   * @param int    $video_id
+   */
+  public function addVideoToFolder($folder_id, $video_id) {
+    $this->cmsRequest('PUT', '/folders/' . $folder_id . '/videos/' . $video_id, NULL);
   }
 }
