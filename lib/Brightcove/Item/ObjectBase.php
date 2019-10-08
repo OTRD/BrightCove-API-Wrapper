@@ -4,8 +4,6 @@ namespace Brightcove\Item;
 
 /**
  * Base object which implements most of a needed methods to satisfy ObjectInterface.
- *
- * @internal
  */
 class ObjectBase implements ObjectInterface {
   /**
@@ -30,8 +28,6 @@ class ObjectBase implements ObjectInterface {
    * All property setters should call this function.
    *
    * @param string $field_name
-   *
-   * @internal
    */
   public function fieldChanged($field_name) {
     $this->changedFields[] = $field_name;
@@ -41,8 +37,6 @@ class ObjectBase implements ObjectInterface {
    * Marks a field or fields unchanged.
    *
    * @param $field_name
-   *
-   * @internal
    */
   public function fieldUnchanged($field_name) {
     $fields = func_get_args();
@@ -54,8 +48,6 @@ class ObjectBase implements ObjectInterface {
    *
    * @param string $name
    * @return string
-   *
-   * @internal
    */
   protected function canonicalFieldName($name) {
     return isset($this->fieldAliases[$name]) ? $this->fieldAliases[$name] : $name;
@@ -63,8 +55,6 @@ class ObjectBase implements ObjectInterface {
 
   /**
    * @return array
-   *
-   * @internal
    */
   public function postJSON() {
     $data = [];
@@ -95,8 +85,6 @@ class ObjectBase implements ObjectInterface {
 
   /**
    * @return array
-   *
-   * @internal
    */
   public function patchJSON() {
     $data = [];
@@ -131,8 +119,6 @@ class ObjectBase implements ObjectInterface {
 
   /**
    * @param array $json
-   *
-   * @internal
    */
   public function applyJSON(array $json) {}
 
@@ -155,8 +141,6 @@ class ObjectBase implements ObjectInterface {
    * @param bool $is_array
    *   If the property is an array. This will be only used
    *   when $classname is not null.
-   *
-   * @internal
    */
   protected function applyProperty(array $json, $name, $json_name = NULL, $classname = NULL, $is_array = FALSE) {
     if ($json_name === NULL) {
@@ -191,8 +175,6 @@ class ObjectBase implements ObjectInterface {
    * @param array|string $json
    *
    * @return static
-   *
-   * @internal
    */
   public static function fromJSON($json) {
     if (is_string($json)) {

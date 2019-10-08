@@ -153,7 +153,7 @@ class PM extends API {
    * @return Configuration
    */
   public function getEmbedConfigurationBranch($player_id, $embed_id, $branch) {
-    return $this->pmRequest('GET', "/players/{$player_id}/players/{$embed_id}/{$branch}", Configuration::class);
+    return $this->pmRequest('GET', "/players/{$player_id}/embeds/{$embed_id}/{$branch}", Configuration::class);
   }
 
   /**
