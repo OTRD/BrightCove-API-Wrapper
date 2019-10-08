@@ -349,7 +349,7 @@ class Client {
 
     $json = json_decode($res, TRUE);
 
-    if (is_null($result)) {
+    if ($result === null) {
       return $json;
     }
 

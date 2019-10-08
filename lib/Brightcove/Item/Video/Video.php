@@ -16,12 +16,14 @@ class Video extends ObjectBase {
    * @var string
    */
   protected $id;
+
   /**
    * The id of the account.
    *
    * @var string
    */
   protected $account_id;
+
   /**
    * It will be true if all processing of renditions and images is complete.
    *
@@ -36,6 +38,7 @@ class Video extends ObjectBase {
    * @var string
    */
   protected $created_at;
+
   /**
    * Array of cue_point objects.
    *
@@ -46,36 +49,42 @@ class Video extends ObjectBase {
    * @var CuePoint[]
    */
   protected $cue_points;
+
   /**
    * Map of custom field name:value pairs; only fields that have values are included.
    *
    * @var array
    */
   protected $custom_fields;
+
   /**
    * The short description of the video - 250 single-byte characters maximum.
    *
    * @var string
    */
   protected $description;
+
   /**
    * Length of the video in milliseconds.
    *
    * @var int
    */
   protected $duration;
+
   /**
    * Indicates whether ad requests are permitted for the video.
    *
    * @var string
    */
   protected $economics;
+
   /**
    * This is a reference to folder fields.
    *
    * @var string
    */
   protected $folder_id;
+
   /**
    * If geo-restriction is enabled for the account,
    * this array will contain geo objects which represents
@@ -84,64 +93,82 @@ class Video extends ObjectBase {
    * @var GEO[]
    */
   protected $geo;
+
   /**
    * List of image objects
    *
    * @var Image[]
    */
   protected $images;
+
   /**
    * Descript a related link.
    *
    * @var Link
    */
   protected $link;
+
   /**
    * Maximum 5000 single-byte characters allowed.
    *
    * @var string
    */
   protected $long_description;
+
   /**
    * Video title - required field
    *
    * @var string
    */
   protected $name;
+
+  /**
+   * Video file name
+   *
+   * @var string
+   */
+  protected $original_filename;
+
   /**
    * Any value that is unique within the account
    *
    * @var string
    */
   protected $reference_id;
+
   /**
    * @var Schedule
    */
   protected $schedule;
+
   /**
    * Sharing object
    *
    * @var Sharing $sharing
    */
   protected $sharing;
+
   /**
    * Current status of the video: ACTIVE | INACTIVE | PENDING | DELETED.
    *
    * @var String.
    */
   protected $state;
+
   /**
    * Array of tags (strings) added to the video.
    *
    * @var string[].
    */
   protected $tags;
+
   /**
    * Array of text_track objects.
    *
    * @var TextTrack[]
    */
   protected $text_tracks;
+
   /**
    * ISO 8601 date-time string
    * date-time video was last modified.
@@ -150,12 +177,14 @@ class Video extends ObjectBase {
    * @var string
    */
   protected $updated_at;
+
   /**
    * The mapping projection for 360° videos, e.g. "equirectangular"
    *
    * @var string
    */
   protected $projection;
+
   /**
    * ISO 8601 date-time string
    * Date-time video was published, can differ from created_at; example: "2014-12-09T06:07:11.877Z".
@@ -168,19 +197,25 @@ class Video extends ObjectBase {
     parent::applyJSON($json);
     $this->applyProperty($json, 'id');
     $this->applyProperty($json, 'account_id');
+    $this->applyProperty($json, 'ad_keys');
+    $this->applyProperty($json, 'clip_source_video_id');
     $this->applyProperty($json, 'complete');
     $this->applyProperty($json, 'created_at');
     $this->applyProperty($json, 'cue_points', NULL, CuePoint::class, TRUE);
     $this->applyProperty($json, 'custom_fields');
+    $this->applyProperty($json, 'delivery_type');
     $this->applyProperty($json, 'description');
+    $this->applyProperty($json, 'digital_master_id');
     $this->applyProperty($json, 'duration');
     $this->applyProperty($json, 'economics');
     $this->applyProperty($json, 'folder_id');
     $this->applyProperty($json, 'geo', NULL, GEO::class);
+    $this->applyProperty($json, 'has_digital_master');
     $this->applyProperty($json, 'images', NULL, Image::class, TRUE);
     $this->applyProperty($json, 'link', NULL, Link::class);
     $this->applyProperty($json, 'long_description');
     $this->applyProperty($json, 'name');
+    $this->applyProperty($json, 'original_filename');
     $this->applyProperty($json, 'reference_id');
     $this->applyProperty($json, 'schedule', NULL, Schedule::class);
     $this->applyProperty($json, 'sharing', NULL, Sharing::class);
@@ -404,7 +439,7 @@ class Video extends ObjectBase {
   }
 
   /**
-   * @param  Link $link
+   * @param Link $link
    * @return $this
    */
   public function setLink(Link $link = NULL) {
@@ -444,6 +479,23 @@ class Video extends ObjectBase {
   public function setName($name) {
     $this->name = $name;
     $this->fieldChanged('name');
+    return $this;
+  }
+
+  /**
+   * @return string
+   */
+  public function getOriginalFilename() {
+    return $this->original_filename;
+  }
+
+  /**
+   * @param string $original_filename
+   * @return $this
+   */
+  public function setOriginalFilename($original_filename) {
+    $this->original_filename = $original_filename;
+    $this->fieldChanged('original_filename');
     return $this;
   }
 

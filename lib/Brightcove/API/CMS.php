@@ -1,23 +1,25 @@
 <?php
+
 namespace Brightcove\API;
 
 use Brightcove\API\Request\SubscriptionRequest;
-use Brightcove\Item\Subscription;
-use Brightcove\Item\Video\Video;
-use Brightcove\Item\Video\Source;
-use Brightcove\Item\Video\Images;
-use Brightcove\Item\Playlist;
 use Brightcove\Item\CustomFields;
+use Brightcove\Item\ObjectInterface;
+use Brightcove\Item\Playlist;
+use Brightcove\Item\Subscription;
+use Brightcove\Item\Video\Images;
+use Brightcove\Item\Video\Source;
+use Brightcove\Item\Video\Video;
 
 /**
-  * This class provides uncached read access to the data via request functions.
+ * This class provides uncached read access to the data via request functions.
  *
  * @api
  */
 class CMS extends API {
 
   protected function cmsRequest($method, $endpoint, $result, $is_array = FALSE, $post = NULL) {
-    return $this->client->request($method, '1','cms', $this->account, $endpoint, $result, $is_array, $post);
+    return $this->client->request($method, '1', 'cms', $this->account, $endpoint, $result, $is_array, $post);
   }
 
   /**
@@ -210,7 +212,7 @@ class CMS extends API {
    * @param string $subscription_id
    * @return Subscription
    */
-  public function getSubscription($subscription_id)  {
+  public function getSubscription($subscription_id) {
     return $this->cmsRequest('GET', "/subscriptions/{$subscription_id}", Subscription::class);
   }
 
@@ -229,4 +231,20 @@ class CMS extends API {
     $this->cmsRequest('DELETE', "/subscriptions/{$subscription_id}", NULL);
   }
 
+  /**
+   * @param     $folder_id
+   * @param int $limit
+   * @return ObjectInterface|ObjectInterface[]|null
+   */
+  public function getVideosInFolder($folder_id, $limit = 20) {
+    return $this->cmsRequest('GET', '/folders/' . $folder_id . '/videos?limit=' . $limit, Video::class, TRUE);
+  }
+
+  /**
+   * @param string $folder_id
+   * @param int    $video_id
+   */
+  public function addVideoToFolder($folder_id, $video_id) {
+    $this->cmsRequest('PUT', '/folders/' . $folder_id . '/videos/' . $video_id, NULL);
+  }
 }
