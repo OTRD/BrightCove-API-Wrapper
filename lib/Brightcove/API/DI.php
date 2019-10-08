@@ -6,10 +6,16 @@ use Brightcove\API\API;
 use Brightcove\API\Request\IngestRequest;
 use Brightcove\API\Response\IngestResponse;
 
+/**
+ * Class DI
+ *
+ * @package Brightcove\API
+ * @api
+ */
 class DI extends API {
 
   protected function diRequest($method, $endpoint, $result, $is_array = FALSE, $post = NULL) {
-    return $this->client->request($method, 'ingest', $this->account, $endpoint, $result, $is_array, $post);
+    return $this->client->request($method, '1', 'ingest', $this->account, $endpoint, $result, $is_array, $post);
   }
 
   /**

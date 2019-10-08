@@ -2,8 +2,14 @@
 
 namespace Brightcove\API\Request;
 
-use Brightcove\Object\ObjectBase;
+use Brightcove\Item\ObjectBase;
 
+/**
+ * Class IngestImage
+ *
+ * @package Brightcove\API\Request
+ * @api
+ */
 class IngestImage extends ObjectBase {
   /**
    * @var string

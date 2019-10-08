@@ -2,8 +2,14 @@
 
 namespace Brightcove\API\Request;
 
-use Brightcove\Object\ObjectBase;
+use Brightcove\Item\ObjectBase;
 
+/**
+ * Class IngestRequestMaster
+ *
+ * @package Brightcove\API\Request
+ * @api
+ */
 class IngestRequestMaster extends ObjectBase {
   protected $url;
 
