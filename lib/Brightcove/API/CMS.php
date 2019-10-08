@@ -3,21 +3,23 @@
 namespace Brightcove\API;
 
 use Brightcove\API\Request\SubscriptionRequest;
-use Brightcove\Object\CustomFields;
-use Brightcove\Object\ObjectInterface;
-use Brightcove\Object\Playlist;
-use Brightcove\Object\Subscription;
-use Brightcove\Object\Video\Images;
-use Brightcove\Object\Video\Source;
-use Brightcove\Object\Video\Video;
+use Brightcove\Item\CustomFields;
+use Brightcove\Item\ObjectInterface;
+use Brightcove\Item\Playlist;
+use Brightcove\Item\Subscription;
+use Brightcove\Item\Video\Images;
+use Brightcove\Item\Video\Source;
+use Brightcove\Item\Video\Video;
 
 /**
  * This class provides uncached read access to the data via request functions.
+ *
+ * @api
  */
 class CMS extends API {
 
   protected function cmsRequest($method, $endpoint, $result, $is_array = FALSE, $post = NULL) {
-    return $this->client->request($method, 'cms', $this->account, $endpoint, $result, $is_array, $post);
+    return $this->client->request($method, '1', 'cms', $this->account, $endpoint, $result, $is_array, $post);
   }
 
   /**

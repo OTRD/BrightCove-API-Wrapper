@@ -2,8 +2,14 @@
 
 namespace Brightcove\API\Response;
 
-use Brightcove\Object\ObjectBase;
+use Brightcove\Item\ObjectBase;
 
+/**
+ * Class IngestResponse
+ *
+ * @package Brightcove\API\Response
+ * @api
+ */
 class IngestResponse extends ObjectBase {
   protected $id;
 
