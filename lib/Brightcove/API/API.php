@@ -4,8 +4,6 @@ namespace Brightcove\API;
 
 /**
  * A superclass for the Brightcove API implementations.
- *
- * @internal
  */
 abstract class API {
   protected $account;
@@ -16,8 +14,6 @@ abstract class API {
    *
    * @param \Brightcove\API\Client $client
    * @param $account
-   *
-   * @internal
    */
   public function __construct(Client $client, $account) {
     $this->client = $client;
