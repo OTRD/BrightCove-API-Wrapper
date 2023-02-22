@@ -3,6 +3,7 @@
 namespace Brightcove\API;
 
 use Brightcove\API\API;
+use Brightcove\API\Exception\APIException;
 use Brightcove\API\Request\IngestRequest;
 use Brightcove\API\Response\IngestResponse;
 
@@ -14,6 +15,9 @@ use Brightcove\API\Response\IngestResponse;
  */
 class DI extends API {
 
+  /**
+   * @throws APIException
+   */
   protected function diRequest($method, $endpoint, $result, $is_array = FALSE, $post = NULL) {
     return $this->client->request($method, '1', 'ingest', $this->account, $endpoint, $result, $is_array, $post);
   }

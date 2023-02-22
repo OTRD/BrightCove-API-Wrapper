@@ -2,6 +2,7 @@
 
 namespace Brightcove\API;
 
+use Brightcove\API\Exception\APIException;
 use Brightcove\Item\Player\CreateData;
 use Brightcove\Item\Player\Embed;
 use Brightcove\Item\Player\EmbedList;
@@ -20,6 +21,9 @@ use Brightcove\Item\Player\UpdateData;
  */
 class PM extends API {
 
+  /**
+   * @throws APIException
+   */
   protected function pmRequest($method, $endpoint, $result, $is_array = FALSE, $post = NULL) {
     return $this->client->request($method, '2','players', $this->account, $endpoint, $result, $is_array, $post);
   }

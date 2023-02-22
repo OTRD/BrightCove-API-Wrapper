@@ -2,6 +2,7 @@
 
 namespace Brightcove\API;
 
+use Brightcove\API\Exception\APIException;
 use Brightcove\API\Request\SubscriptionRequest;
 use Brightcove\Item\CustomFields;
 use Brightcove\Item\ObjectInterface;
@@ -18,6 +19,9 @@ use Brightcove\Item\Video\Video;
  */
 class CMS extends API {
 
+  /**
+   * @throws APIException
+   */
   protected function cmsRequest($method, $endpoint, $result, $is_array = FALSE, $post = NULL) {
     return $this->client->request($method, '1', 'cms', $this->account, $endpoint, $result, $is_array, $post);
   }
@@ -26,6 +30,7 @@ class CMS extends API {
    * Lists video objects with the given restrictions.
    *
    * @return Video[]
+   * @throws APIException
    */
   public function listVideos($search = NULL, $sort = NULL, $limit = NULL, $offset = NULL) {
     $query = '';
@@ -65,6 +70,7 @@ class CMS extends API {
    * Gets the images for a single video.
    *
    * @return Images
+   * @throws APIException
    */
   public function getVideoImages($video_id) {
     return $this->cmsRequest('GET', "/videos/{$video_id}/images", Images::class);
@@ -74,11 +80,15 @@ class CMS extends API {
    * Gets the sources for a single video.
    *
    * @return Source[]
+   * @throws APIException
    */
   public function getVideoSources($video_id) {
     return $this->cmsRequest('GET', "/videos/{$video_id}/sources", Source::class, TRUE);
   }
 
+  /**
+   * @throws APIException
+   */
   public function getVideoFields() {
     return $this->cmsRequest('GET', "/video_fields", CustomFields::class, FALSE);
   }
@@ -87,6 +97,7 @@ class CMS extends API {
    * Gets the data for a single video by issuing a GET request.
    *
    * @return Video $video
+   * @throws APIException
    */
   public function getVideo($video_id) {
     return $this->cmsRequest('GET', "/videos/{$video_id}", Video::class);
@@ -105,6 +116,7 @@ class CMS extends API {
    * Updates a video object with an HTTP PATCH request.
    *
    * @return Video $video
+   * @throws APIException
    */
   public function updateVideo(Video $video) {
     $video->fieldUnchanged('account_id', 'id');
@@ -113,6 +125,7 @@ class CMS extends API {
 
   /**
    * Deletes a video object.
+   * @throws APIException
    */
   public function deleteVideo($video_id) {
     return $this->cmsRequest('DELETE', "/videos/{$video_id}", NULL);
@@ -120,6 +133,7 @@ class CMS extends API {
 
   /**
    * @return int
+   * @throws APIException
    */
   public function countPlaylists() {
     $result = $this->cmsRequest('GET', "/counts/playlists", NULL);
@@ -131,6 +145,7 @@ class CMS extends API {
 
   /**
    * @return Playlist[]
+   * @throws APIException
    */
   public function listPlaylists($sort = NULL, $limit = NULL, $offset = NULL) {
     $query = '';
@@ -152,6 +167,7 @@ class CMS extends API {
   /**
    * @param Playlist $playlist
    * @return Playlist
+   * @throws APIException
    */
   public function createPlaylist(Playlist $playlist) {
     return $this->cmsRequest('POST', '/playlists', Playlist::class, FALSE, $playlist);
@@ -160,6 +176,7 @@ class CMS extends API {
   /**
    * @param string $playlist_id
    * @return Playlist
+   * @throws APIException
    */
   public function getPlaylist($playlist_id) {
     return $this->cmsRequest('GET', "/playlists/{$playlist_id}", Playlist::class);
@@ -168,6 +185,7 @@ class CMS extends API {
   /**
    * @param Playlist $playlist
    * @return Playlist
+   * @throws APIException
    */
   public function updatePlaylist(Playlist $playlist) {
     $playlist->fieldUnchanged('id');
@@ -176,6 +194,7 @@ class CMS extends API {
 
   /**
    * @param string $playlist_id
+   * @throws APIException
    */
   public function deletePlaylist($playlist_id) {
     $this->cmsRequest('DELETE', "/playlists/{$playlist_id}", NULL);
@@ -184,6 +203,7 @@ class CMS extends API {
   /**
    * @param string $playlist_id
    * @return int
+   * @throws APIException
    */
   public function getVideoCountInPlaylist($playlist_id) {
     $result = $this->cmsRequest('GET', "/counts/playlists/{$playlist_id}/videos", NULL);
@@ -196,6 +216,7 @@ class CMS extends API {
   /**
    * @param string $playlist_id
    * @return Video[]
+   * @throws APIException
    */
   public function getVideosInPlaylist($playlist_id) {
     return $this->cmsRequest('GET', "/playlists/{$playlist_id}/videos", Video::class, TRUE);
@@ -203,6 +224,7 @@ class CMS extends API {
 
   /**
    * @return Subscription[]|null
+   * @throws APIException
    */
   public function getSubscriptions() {
     return $this->cmsRequest('GET', '/subscriptions', Subscription::class, TRUE);
@@ -211,6 +233,7 @@ class CMS extends API {
   /**
    * @param string $subscription_id
    * @return Subscription
+   * @throws APIException
    */
   public function getSubscription($subscription_id) {
     return $this->cmsRequest('GET', "/subscriptions/{$subscription_id}", Subscription::class);
@@ -219,6 +242,7 @@ class CMS extends API {
   /**
    * @param SubscriptionRequest $request
    * @return Subscription|null
+   * @throws APIException
    */
   public function createSubscription(SubscriptionRequest $request) {
     return $this->cmsRequest('POST', '/subscriptions', Subscription::class, FALSE, $request);
@@ -226,6 +250,7 @@ class CMS extends API {
 
   /**
    * @param string $subscription_id
+   * @throws APIException
    */
   public function deleteSubscription($subscription_id) {
     $this->cmsRequest('DELETE', "/subscriptions/{$subscription_id}", NULL);
@@ -235,6 +260,7 @@ class CMS extends API {
    * @param     $folder_id
    * @param int $limit
    * @return ObjectInterface|ObjectInterface[]|null
+   * @throws APIException
    */
   public function getVideosInFolder($folder_id, $limit = 20) {
     return $this->cmsRequest('GET', '/folders/' . $folder_id . '/videos?limit=' . $limit, Video::class, TRUE);
@@ -243,6 +269,7 @@ class CMS extends API {
   /**
    * @param string $folder_id
    * @param int    $video_id
+   * @throws APIException
    */
   public function addVideoToFolder($folder_id, $video_id) {
     $this->cmsRequest('PUT', '/folders/' . $folder_id . '/videos/' . $video_id, NULL);
