@@ -5,60 +5,43 @@ namespace Brightcove\Item\Player;
 use Brightcove\Item\ObjectBase;
 
 /**
- * Class PlayerList
- *
- * @package Brightcove\Item\Player
  * @api
  */
-class PlayerList extends ObjectBase {
-  /**
-   * @var array
-   */
-  protected $items;
+class PlayerList extends ObjectBase
+{
+    protected array $items;
 
-  /**
-   * @var int
-   */
-  protected $item_count;
+    protected int $item_count;
 
-  public function applyJSON(array $json) {
-    parent::applyJSON($json);
+    public function applyJSON(array $json): void
+    {
+        parent::applyJSON($json);
 
-    $this->applyProperty($json, 'items', NULL, Player::class, TRUE);
-    $this->applyProperty($json, 'item_count');
-  }
+        $this->applyProperty($json, 'items', null, Player::class, true);
+        $this->applyProperty($json, 'item_count');
+    }
 
-  /**
-   * @return Player[]
-   */
-  public function getItems() {
-    return $this->items;
-  }
+    public function getItems(): array
+    {
+        return $this->items;
+    }
 
-  /**
-   * @param Player[] $items
-   * @return PlayerList
-   */
-  public function setItems(array $items) {
-    $this->items = $items;
-    $this->fieldChanged('items');
-    return $this;
-  }
+    public function setItems(array $items): self
+    {
+        $this->items = $items;
+        $this->fieldChanged('items');
+        return $this;
+    }
 
-  /**
-   * @return int
-   */
-  public function getItemCount() {
-    return $this->item_count;
-  }
+    public function getItemCount(): int
+    {
+        return $this->item_count;
+    }
 
-  /**
-   * @param int $item_count
-   * @return PlayerList
-   */
-  public function setItemCount($item_count) {
-    $this->item_count = $item_count;
-    $this->fieldChanged('item_count');
-    return $this;
-  }
+    public function setItemCount(int $item_count): self
+    {
+        $this->item_count = $item_count;
+        $this->fieldChanged('item_count');
+        return $this;
+    }
 }

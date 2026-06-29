@@ -5,84 +5,58 @@ namespace Brightcove\Item\Player\Branch\Configuration;
 use Brightcove\Item\ObjectBase;
 
 /**
- * Class CSS
- *
- * @package Brightcove\Item\Player\Branch\Configuration
  * @api
  */
-class CSS extends ObjectBase {
+class CSS extends ObjectBase
+{
+    protected string $controlBarColor;
 
-  /**
-   * @var string
-   */
-  protected $controlBarColor;
+    protected string $controlColor;
 
-  /**
-   * @var string
-   */
-  protected $controlColor;
+    protected string $progressColor;
 
-  /**
-   * @var string
-   */
-  protected $progressColor;
+    public function applyJSON(array $json): void
+    {
+        parent::applyJSON($json);
 
-  public function applyJSON(array $json) {
-    parent::applyJSON($json);
+        $this->applyProperty($json, 'controlBarColor');
+        $this->applyProperty($json, 'controlColor');
+        $this->applyProperty($json, 'progressColor');
+    }
 
-    $this->applyProperty($json, 'controlBarColor');
-    $this->applyProperty($json, 'controlColor');
-    $this->applyProperty($json, 'progressColor');
-  }
+    public function getControlBarColor(): string
+    {
+        return $this->controlBarColor;
+    }
 
-  /**
-   * @return string
-   */
-  public function getControlBarColor() {
-    return $this->controlBarColor;
-  }
+    public function setControlBarColor(string $controlBarColor): self
+    {
+        $this->controlBarColor = $controlBarColor;
+        $this->fieldChanged('controlBarColor');
+        return $this;
+    }
 
-  /**
-   * @param string $controlBarColor
-   * @return CSS
-   */
-  public function setControlBarColor($controlBarColor) {
-    $this->controlBarColor = $controlBarColor;
-    $this->fieldChanged('controlBarColor');
-    return $this;
-  }
+    public function getControlColor(): string
+    {
+        return $this->controlColor;
+    }
 
-  /**
-   * @return string
-   */
-  public function getControlColor() {
-    return $this->controlColor;
-  }
+    public function setControlColor(string $controlColor): self
+    {
+        $this->controlColor = $controlColor;
+        $this->fieldChanged('controlColor');
+        return $this;
+    }
 
-  /**
-   * @param string $controlColor
-   * @return CSS
-   */
-  public function setControlColor($controlColor) {
-    $this->controlColor = $controlColor;
-    $this->fieldChanged('controlColor');
-    return $this;
-  }
+    public function getProgressColor(): string
+    {
+        return $this->progressColor;
+    }
 
-  /**
-   * @return string
-   */
-  public function getProgressColor() {
-    return $this->progressColor;
-  }
-
-  /**
-   * @param string $progressColor
-   * @return CSS
-   */
-  public function setProgressColor($progressColor) {
-    $this->progressColor = $progressColor;
-    $this->fieldChanged('progressColor');
-    return $this;
-  }
+    public function setProgressColor(string $progressColor): self
+    {
+        $this->progressColor = $progressColor;
+        $this->fieldChanged('progressColor');
+        return $this;
+    }
 }

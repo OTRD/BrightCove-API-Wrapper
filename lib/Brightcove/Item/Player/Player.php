@@ -6,198 +6,133 @@ use Brightcove\Item\ObjectBase;
 use Brightcove\Item\Player\Branch\BranchList;
 
 /**
- * Class Player
- *
- * @package Brightcove\Item\Player
  * @api
  */
-class Player extends ObjectBase {
-  /**
-   * @var string
-   */
-  protected $accountId;
+class Player extends ObjectBase
+{
+    protected string $accountId;
 
-  /**
-   * @var BranchList
-   */
-  protected $branches;
+    protected BranchList $branches;
 
-  /**
-   * @var string
-   */
-  protected $description;
+    protected string $description;
 
-  /**
-   * @var string
-   */
-  protected $id;
+    protected string $id;
 
-  /**
-   * @var string
-   */
-  protected $name;
+    protected string $name;
 
-  /**
-   * @var string
-   */
-  protected $created_at;
+    protected string $created_at;
 
-  /**
-   * @var string
-   */
-  protected $url;
+    protected string $url;
 
-  /**
-   * @var int
-   */
-  protected $embed_count;
+    protected int $embed_count;
 
-  public function applyJSON(array $json) {
-    parent::applyJSON($json);
+    public function applyJSON(array $json): void
+    {
+        parent::applyJSON($json);
 
-    $this->applyProperty($json, 'accountId');
-    $this->applyProperty($json, 'branches', NULL, BranchList::class);
-    $this->applyProperty($json, 'description');
-    $this->applyProperty($json, 'id');
-    $this->applyProperty($json, 'name');
-    $this->applyProperty($json, 'created_at');
-    $this->applyProperty($json, 'url');
-    $this->applyProperty($json, 'embed_count');
-  }
+        $this->applyProperty($json, 'accountId');
+        $this->applyProperty($json, 'branches', null, BranchList::class);
+        $this->applyProperty($json, 'description');
+        $this->applyProperty($json, 'id');
+        $this->applyProperty($json, 'name');
+        $this->applyProperty($json, 'created_at');
+        $this->applyProperty($json, 'url');
+        $this->applyProperty($json, 'embed_count');
+    }
 
-  /**
-   * @return string
-   */
-  public function getAccountId() {
-    return $this->accountId;
-  }
+    public function getAccountId(): string
+    {
+        return $this->accountId;
+    }
 
-  /**
-   * @param string $accountId
-   * @return Player
-   */
-  public function setAccountId($accountId) {
-    $this->accountId = $accountId;
-    $this->fieldChanged('accountId');
-    return $this;
-  }
+    public function setAccountId(string $accountId): self
+    {
+        $this->accountId = $accountId;
+        $this->fieldChanged('accountId');
+        return $this;
+    }
 
-  /**
-   * @return BranchList
-   */
-  public function getBranches() {
-    return $this->branches;
-  }
+    public function getBranches(): BranchList
+    {
+        return $this->branches;
+    }
 
-  /**
-   * @param BranchList $branches
-   * @return Player
-   */
-  public function setBranches(BranchList $branches) {
-    $this->branches = $branches;
-    $this->fieldChanged('branches');
-    return $this;
-  }
+    public function setBranches(BranchList $branches): self
+    {
+        $this->branches = $branches;
+        $this->fieldChanged('branches');
+        return $this;
+    }
 
-  /**
-   * @return string
-   */
-  public function getDescription() {
-    return $this->description;
-  }
+    public function getDescription(): string
+    {
+        return $this->description;
+    }
 
-  /**
-   * @param string $description
-   * @return Player
-   */
-  public function setDescription($description) {
-    $this->description = $description;
-    $this->fieldChanged('description');
-    return $this;
-  }
+    public function setDescription(string $description): self
+    {
+        $this->description = $description;
+        $this->fieldChanged('description');
+        return $this;
+    }
 
-  /**
-   * @return string
-   */
-  public function getId() {
-    return $this->id;
-  }
+    public function getId(): string
+    {
+        return $this->id;
+    }
 
-  /**
-   * @param string $id
-   * @return Player
-   */
-  public function setId($id) {
-    $this->id = $id;
-    $this->fieldChanged('id');
-    return $this;
-  }
+    public function setId(string $id): self
+    {
+        $this->id = $id;
+        $this->fieldChanged('id');
+        return $this;
+    }
 
-  /**
-   * @return string
-   */
-  public function getName() {
-    return $this->name;
-  }
+    public function getName(): string
+    {
+        return $this->name;
+    }
 
-  /**
-   * @param string $name
-   * @return Player
-   */
-  public function setName($name) {
-    $this->name = $name;
-    $this->fieldChanged('name');
-    return $this;
-  }
+    public function setName(string $name): self
+    {
+        $this->name = $name;
+        $this->fieldChanged('name');
+        return $this;
+    }
 
-  /**
-   * @return string
-   */
-  public function getCreatedAt() {
-    return $this->created_at;
-  }
+    public function getCreatedAt(): string
+    {
+        return $this->created_at;
+    }
 
-  /**
-   * @param string $created_at
-   * @return Player
-   */
-  public function setCreatedAt($created_at) {
-    $this->created_at = $created_at;
-    $this->fieldChanged('created_at');
-    return $this;
-  }
+    public function setCreatedAt(string $created_at): self
+    {
+        $this->created_at = $created_at;
+        $this->fieldChanged('created_at');
+        return $this;
+    }
 
-  /**
-   * @return string
-   */
-  public function getUrl() {
-    return $this->url;
-  }
+    public function getUrl(): string
+    {
+        return $this->url;
+    }
 
-  /**
-   * @param string $url
-   * @return Player
-   */
-  public function setUrl($url) {
-    $this->url = $url;
-    $this->fieldChanged('url');
-    return $this;
-  }
+    public function setUrl(string $url): self
+    {
+        $this->url = $url;
+        $this->fieldChanged('url');
+        return $this;
+    }
 
-  /**
-   * @return int
-   */
-  public function getEmbedCount() {
-    return $this->embed_count;
-  }
+    public function getEmbedCount(): int
+    {
+        return $this->embed_count;
+    }
 
-  /**
-   * @param int $embed_count
-   * @return Player
-   */
-  public function setEmbedCount($embed_count) {
-    $this->embed_count = $embed_count;
-    $this->fieldChanged('embed_count');
-    return $this;
-  }
+    public function setEmbedCount(int $embed_count): self
+    {
+        $this->embed_count = $embed_count;
+        $this->fieldChanged('embed_count');
+        return $this;
+    }
 }

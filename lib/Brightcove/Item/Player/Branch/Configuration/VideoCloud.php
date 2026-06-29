@@ -5,62 +5,43 @@ namespace Brightcove\Item\Player\Branch\Configuration;
 use Brightcove\Item\ObjectBase;
 
 /**
- * Class VideoCloud
- *
- * @package Brightcove\Item\Player\Branch\Configuration
  * @api
  */
-class VideoCloud extends ObjectBase {
+class VideoCloud extends ObjectBase
+{
+    protected string $policyKey;
 
-  /**
-   * @var string
-   */
-  protected $policy_key;
+    protected string $video;
 
-  /**
-   * @var string
-   */
-  protected $video;
+    public function applyJSON(array $json): void
+    {
+        parent::applyJSON($json);
 
-  public function applyJSON(array $json) {
-    parent::applyJSON($json);
+        $this->applyProperty($json, 'policyKey');
+        $this->applyProperty($json, 'video');
+    }
 
-    $this->applyProperty($json, 'policy_key');
-    $this->applyProperty($json, 'video');
-  }
+    public function getPolicyKey(): string
+    {
+        return $this->policyKey;
+    }
 
-  /**
-   * @return string
-   */
-  public function getPolicyKey() {
-    return $this->policy_key;
-  }
+    public function setPolicyKey(string $policyKey): self
+    {
+        $this->policyKey = $policyKey;
+        $this->fieldChanged('policyKey');
+        return $this;
+    }
 
-  /**
-   * @param string $policy_key
-   * @return VideoCloud
-   */
-  public function setPolicyKey($policy_key) {
-    $this->policy_key = $policy_key;
-    $this->fieldChanged('policy_key');
-    return $this;
-  }
+    public function getVideo(): string
+    {
+        return $this->video;
+    }
 
-  /**
-   * @return string
-   */
-  public function getVideo() {
-    return $this->video;
-  }
-
-  /**
-   * @param string $video
-   * @return VideoCloud
-   */
-  public function setVideo($video) {
-    $this->video = $video;
-    $this->fieldChanged('video');
-    return $this;
-  }
-
+    public function setVideo(string $video): self
+    {
+        $this->video = $video;
+        $this->fieldChanged('video');
+        return $this;
+    }
 }

@@ -5,223 +5,139 @@ namespace Brightcove\Item\Player\Embed;
 use Brightcove\Item\ObjectBase;
 
 /**
- * Class PublishRequest
- *
- * @package Brightcove\Item\Player\Embed
  * @api
  */
-class PublishRequest extends ObjectBase {
+class PublishRequest extends ObjectBase
+{
+    protected string $author;
 
-  /**
-   * @var string
-   */
-  protected $author;
+    protected string $buildLog;
 
-  /**
-   * @var string
-   */
-  protected $buildLog;
+    protected string $comment;
 
-  /**
-   * @var string
-   */
-  protected $comment;
+    protected string $elapsed_time;
 
-  /**
-   * @var string
-   */
-  protected $elapsed_time;
+    protected string $errorCode;
 
-  /**
-   * @var string
-   */
-  protected $errorCode;
+    protected string $queue_msg_id;
 
-  /**
-   * @var string
-   */
-  protected $queue_msg_id;
+    protected string $requested_at;
 
-  /**
-   * @var string
-   */
-  protected $requested_at;
+    protected string $retries;
 
-  /**
-   * @var string
-   */
-  protected $retries;
+    protected string $status;
 
-  /**
-   * @var string
-   */
-  protected $status;
+    public function applyJSON(array $json): void
+    {
+        parent::applyJSON($json);
 
-  public function applyJSON(array $json) {
-    parent::applyJSON($json);
+        $this->applyProperty($json, 'author');
+        $this->applyProperty($json, 'buildLog');
+        $this->applyProperty($json, 'comment');
+        $this->applyProperty($json, 'elapsed_time');
+        $this->applyProperty($json, 'errorCode');
+        $this->applyProperty($json, 'queue_msg_id');
+        $this->applyProperty($json, 'requested_at');
+        $this->applyProperty($json, 'retries');
+        $this->applyProperty($json, 'status');
+    }
 
-    $this->applyProperty($json, 'author');
-    $this->applyProperty($json, 'buildLog');
-    $this->applyProperty($json, 'comment');
-    $this->applyProperty($json, 'elapsed_time');
-    $this->applyProperty($json, 'errorCode');
-    $this->applyProperty($json, 'queue_msg_id');
-    $this->applyProperty($json, 'requested_at');
-    $this->applyProperty($json, 'retries');
-    $this->applyProperty($json, 'status');
-  }
+    public function getAuthor(): string
+    {
+        return $this->author;
+    }
 
-  /**
-   * @return string
-   */
-  public function getAuthor() {
-    return $this->author;
-  }
+    public function setAuthor(string $author): self
+    {
+        $this->author = $author;
+        return $this;
+    }
 
-  /**
-   * @param string $author
-   *
-   * @return PublishRequest
-   */
-  public function setAuthor($author) {
-    $this->author = $author;
-    return $this;
-  }
+    public function getBuildLog(): string
+    {
+        return $this->buildLog;
+    }
 
-  /**
-   * @return string
-   */
-  public function getBuildLog() {
-    return $this->buildLog;
-  }
+    public function setBuildLog(string $buildLog): self
+    {
+        $this->buildLog = $buildLog;
+        return $this;
+    }
 
-  /**
-   * @param string $buildLog
-   *
-   * @return PublishRequest
-   */
-  public function setBuildLog($buildLog) {
-    $this->buildLog = $buildLog;
-    return $this;
-  }
+    public function getComment(): string
+    {
+        return $this->comment;
+    }
 
-  /**
-   * @return string
-   */
-  public function getComment() {
-    return $this->comment;
-  }
+    public function setComment(string $comment): self
+    {
+        $this->comment = $comment;
+        return $this;
+    }
 
-  /**
-   * @param string $comment
-   *
-   * @return PublishRequest
-   */
-  public function setComment($comment) {
-    $this->comment = $comment;
-    return $this;
-  }
+    public function getElapsedTime(): string
+    {
+        return $this->elapsed_time;
+    }
 
-  /**
-   * @return string
-   */
-  public function getElapsedTime() {
-    return $this->elapsed_time;
-  }
+    public function setElapsedTime(string $elapsed_time): self
+    {
+        $this->elapsed_time = $elapsed_time;
+        return $this;
+    }
 
-  /**
-   * @param string $elapsed_time
-   *
-   * @return PublishRequest
-   */
-  public function setElapsedTime($elapsed_time) {
-    $this->elapsed_time = $elapsed_time;
-    return $this;
-  }
+    public function getErrorCode(): string
+    {
+        return $this->errorCode;
+    }
 
-  /**
-   * @return string
-   */
-  public function getErrorCode() {
-    return $this->errorCode;
-  }
+    public function setErrorCode(string $errorCode): self
+    {
+        $this->errorCode = $errorCode;
+        return $this;
+    }
 
-  /**
-   * @param string $errorCode
-   *
-   * @return PublishRequest
-   */
-  public function setErrorCode($errorCode) {
-    $this->errorCode = $errorCode;
-    return $this;
-  }
+    public function getQueueMsgId(): string
+    {
+        return $this->queue_msg_id;
+    }
 
-  /**
-   * @return string
-   */
-  public function getQueueMsgId() {
-    return $this->queue_msg_id;
-  }
+    public function setQueueMsgId(string $queue_msg_id): self
+    {
+        $this->queue_msg_id = $queue_msg_id;
+        return $this;
+    }
 
-  /**
-   * @param string $queue_msg_id
-   *
-   * @return PublishRequest
-   */
-  public function setQueueMsgId($queue_msg_id) {
-    $this->queue_msg_id = $queue_msg_id;
-    return $this;
-  }
+    public function getRequestedAt(): string
+    {
+        return $this->requested_at;
+    }
 
-  /**
-   * @return string
-   */
-  public function getRequestedAt() {
-    return $this->requested_at;
-  }
+    public function setRequestedAt(string $requested_at): self
+    {
+        $this->requested_at = $requested_at;
+        return $this;
+    }
 
-  /**
-   * @param string $requested_at
-   *
-   * @return PublishRequest
-   */
-  public function setRequestedAt($requested_at) {
-    $this->requested_at = $requested_at;
-    return $this;
-  }
+    public function getRetries(): string
+    {
+        return $this->retries;
+    }
 
-  /**
-   * @return string
-   */
-  public function getRetries() {
-    return $this->retries;
-  }
+    public function setRetries(string $retries): self
+    {
+        $this->retries = $retries;
+        return $this;
+    }
 
-  /**
-   * @param string $retries
-   *
-   * @return PublishRequest
-   */
-  public function setRetries($retries) {
-    $this->retries = $retries;
-    return $this;
-  }
+    public function getStatus(): string
+    {
+        return $this->status;
+    }
 
-  /**
-   * @return string
-   */
-  public function getStatus() {
-    return $this->status;
-  }
-
-  /**
-   * @param string $status
-   *
-   * @return PublishRequest
-   */
-  public function setStatus($status) {
-    $this->status = $status;
-    return $this;
-  }
-
+    public function setStatus(string $status): self
+    {
+        $this->status = $status;
+        return $this;
+    }
 }

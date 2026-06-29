@@ -13,265 +13,248 @@ use Brightcove\Item\Video\Source;
 use Brightcove\Item\Video\Video;
 
 /**
- * This class provides uncached read access to the data via request functions.
- *
  * @api
  */
-class CMS extends API {
-
-  /**
-   * @throws APIException
-   */
-  protected function cmsRequest($method, $endpoint, $result, $is_array = FALSE, $post = NULL) {
-    return $this->client->request($method, '1', 'cms', $this->account, $endpoint, $result, $is_array, $post);
-  }
-
-  /**
-   * Lists video objects with the given restrictions.
-   *
-   * @return Video[]
-   * @throws APIException
-   */
-  public function listVideos($search = NULL, $sort = NULL, $limit = NULL, $offset = NULL) {
-    $query = '';
-    if ($search) {
-      $query .= '&q=' . urlencode($search);
+class CMS extends API
+{
+    /**
+     * @throws APIException
+     */
+    public function listVideos(?string $search = null, ?string $sort = null, ?int $limit = null, ?int $offset = null): array|ObjectInterface|null
+    {
+        $query = '';
+        if ($search) {
+            $query .= '&q=' . urlencode($search);
+        }
+        if ($sort) {
+            $query .= '&sort=' . $sort;
+        }
+        if ($limit) {
+            $query .= '&limit=' . $limit;
+        }
+        if ($offset) {
+            $query .= '&offset=' . $offset;
+        }
+        if ($query) {
+            $query = '?' . substr($query, 1);
+        }
+        return $this->cmsRequest('GET', '/videos' . $query, Video::class, true);
     }
-    if ($sort) {
-      $query .= "&sort={$sort}";
+
+    /**
+     * @throws APIException
+     */
+    public function countVideos(?string $search = null): ?int
+    {
+        $query = $search === null ? '' : '?q=' . urlencode($search);
+        /** @var array $result */
+        $result = $this->cmsRequest('GET', '/counts/videos' . $query, null);
+        if ($result && !empty($result['count'])) {
+            return $result['count'];
+        }
+        return null;
     }
-    if ($limit) {
-      $query .= "&limit={$limit}";
+
+    /**
+     * @throws APIException
+     */
+    public function getVideoImages(string $videoId): ObjectInterface|Images|array|null
+    {
+        return $this->cmsRequest('GET', '/videos/' . $videoId . '/images', Images::class);
     }
-    if ($offset) {
-      $query .= "&offset={$offset}";
+
+    /**
+     * @throws APIException
+     */
+    public function getVideoSources(string $videoId): array|ObjectInterface|null
+    {
+        return $this->cmsRequest('GET', '/videos/' . $videoId . '/sources', Source::class, true);
     }
-    if (strlen($query) > 0) {
-      $query = '?' . substr($query, 1);
+
+    /**
+     * @throws APIException
+     */
+    public function getVideoFields(): ObjectInterface|array|null
+    {
+        return $this->cmsRequest('GET', '/video_fields', CustomFields::class);
     }
-    return $this->cmsRequest('GET', "/videos{$query}", Video::class, TRUE);
-  }
 
-  /**
-   * Returns the amount of a searched video's result.
-   *
-   * @return int|null
-   */
-  public function countVideos($search = NULL) {
-    $query = $search === NULL ? '' : "?q=" . urlencode($search);
-    $result = $this->cmsRequest('GET', "/counts/videos{$query}", NULL);
-    if ($result && !empty($result['count'])) {
-      return $result['count'];
+    /**
+     * @throws APIException
+     */
+    public function getVideo(string $videoId): ObjectInterface|Video|array|null
+    {
+        return $this->cmsRequest('GET', '/videos/' . $videoId, Video::class);
     }
-    return NULL;
-  }
 
-  /**
-   * Gets the images for a single video.
-   *
-   * @return Images
-   * @throws APIException
-   */
-  public function getVideoImages($video_id) {
-    return $this->cmsRequest('GET', "/videos/{$video_id}/images", Images::class);
-  }
-
-  /**
-   * Gets the sources for a single video.
-   *
-   * @return Source[]
-   * @throws APIException
-   */
-  public function getVideoSources($video_id) {
-    return $this->cmsRequest('GET', "/videos/{$video_id}/sources", Source::class, TRUE);
-  }
-
-  /**
-   * @throws APIException
-   */
-  public function getVideoFields() {
-    return $this->cmsRequest('GET', "/video_fields", CustomFields::class, FALSE);
-  }
-
-  /**
-   * Gets the data for a single video by issuing a GET request.
-   *
-   * @return Video $video
-   * @throws APIException
-   */
-  public function getVideo($video_id) {
-    return $this->cmsRequest('GET', "/videos/{$video_id}", Video::class);
-  }
-
-  /**
-   * Creates a new video object.
-   *
-   * @return Video $video
-   */
-  public function createVideo(Video $video) {
-    return $this->cmsRequest('POST', '/videos', Video::class, FALSE, $video);
-  }
-
-  /**
-   * Updates a video object with an HTTP PATCH request.
-   *
-   * @return Video $video
-   * @throws APIException
-   */
-  public function updateVideo(Video $video) {
-    $video->fieldUnchanged('account_id', 'id');
-    return $this->cmsRequest('PATCH', "/videos/{$video->getId()}", Video::class, FALSE, $video);
-  }
-
-  /**
-   * Deletes a video object.
-   * @throws APIException
-   */
-  public function deleteVideo($video_id) {
-    return $this->cmsRequest('DELETE', "/videos/{$video_id}", NULL);
-  }
-
-  /**
-   * @return int
-   * @throws APIException
-   */
-  public function countPlaylists() {
-    $result = $this->cmsRequest('GET', "/counts/playlists", NULL);
-    if ($result && !empty($result['count'])) {
-      return $result['count'];
+    /**
+     * @throws APIException
+     */
+    public function createVideo(Video $video): ObjectInterface|Video|array|null
+    {
+        return $this->cmsRequest('POST', '/videos', Video::class, false, $video);
     }
-    return NULL;
-  }
 
-  /**
-   * @return Playlist[]
-   * @throws APIException
-   */
-  public function listPlaylists($sort = NULL, $limit = NULL, $offset = NULL) {
-    $query = '';
-    if ($sort) {
-      $query .= "&sort={$sort}";
+    /**
+     * @throws APIException
+     */
+    public function updateVideo(Video $video): ObjectInterface|Video|array|null
+    {
+        $video->fieldUnchanged('account_id', 'id');
+        return $this->cmsRequest('PATCH', '/videos/' . $video->getId(), Video::class, false, $video);
     }
-    if ($limit) {
-      $query .= "&limit={$limit}";
+
+    /**
+     * @throws APIException
+     */
+    public function deleteVideo(string $videoId): ObjectInterface|array|null
+    {
+        return $this->cmsRequest('DELETE', '/videos/' . $videoId, null);
     }
-    if ($offset) {
-      $query .= "&offset={$offset}";
+
+    /**
+     * @throws APIException
+     */
+    public function countPlaylists(): ?int
+    {
+        /** @var array $result */
+        $result = $this->cmsRequest('GET', '/counts/playlists', null);
+        if ($result && !empty($result['count'])) {
+            return $result['count'];
+        }
+        return null;
     }
-    if (strlen($query) > 0) {
-      $query = '?' . substr($query, 1);
+
+    /**
+     * @throws APIException
+     */
+    public function listPlaylists(?string $sort = null, ?int $limit = null, ?int $offset = null): ObjectInterface|array|null
+    {
+        $query = '';
+        if ($sort) {
+            $query .= '&sort=' . $sort;
+        }
+        if ($limit) {
+            $query .= '&limit=' . $limit;
+        }
+        if ($offset) {
+            $query .= '&offset=' . $offset;
+        }
+        if ($query) {
+            $query = '?' . substr($query, 1);
+        }
+        return $this->cmsRequest('GET', '/playlists' . $query, Playlist::class, true);
     }
-    return $this->cmsRequest('GET', "/playlists{$query}", Playlist::class, TRUE);
-  }
 
-  /**
-   * @param Playlist $playlist
-   * @return Playlist
-   * @throws APIException
-   */
-  public function createPlaylist(Playlist $playlist) {
-    return $this->cmsRequest('POST', '/playlists', Playlist::class, FALSE, $playlist);
-  }
-
-  /**
-   * @param string $playlist_id
-   * @return Playlist
-   * @throws APIException
-   */
-  public function getPlaylist($playlist_id) {
-    return $this->cmsRequest('GET', "/playlists/{$playlist_id}", Playlist::class);
-  }
-
-  /**
-   * @param Playlist $playlist
-   * @return Playlist
-   * @throws APIException
-   */
-  public function updatePlaylist(Playlist $playlist) {
-    $playlist->fieldUnchanged('id');
-    return $this->cmsRequest('PATCH', "/playlists/{$playlist->getId()}", Playlist::class, FALSE, $playlist);
-  }
-
-  /**
-   * @param string $playlist_id
-   * @throws APIException
-   */
-  public function deletePlaylist($playlist_id) {
-    $this->cmsRequest('DELETE', "/playlists/{$playlist_id}", NULL);
-  }
-
-  /**
-   * @param string $playlist_id
-   * @return int
-   * @throws APIException
-   */
-  public function getVideoCountInPlaylist($playlist_id) {
-    $result = $this->cmsRequest('GET', "/counts/playlists/{$playlist_id}/videos", NULL);
-    if ($result && !empty($result['count'])) {
-      return $result['count'];
+    /**
+     * @throws APIException
+     */
+    public function createPlaylist(Playlist $playlist): ObjectInterface|Playlist|array|null
+    {
+        return $this->cmsRequest('POST', '/playlists', Playlist::class, false, $playlist);
     }
-    return NULL;
-  }
 
-  /**
-   * @param string $playlist_id
-   * @return Video[]
-   * @throws APIException
-   */
-  public function getVideosInPlaylist($playlist_id) {
-    return $this->cmsRequest('GET', "/playlists/{$playlist_id}/videos", Video::class, TRUE);
-  }
+    /**
+     * @throws APIException
+     */
+    public function getPlaylist(string $playlistId): ObjectInterface|Playlist|array|null
+    {
+        return $this->cmsRequest('GET', '/playlists/' . $playlistId, Playlist::class);
+    }
 
-  /**
-   * @return Subscription[]|null
-   * @throws APIException
-   */
-  public function getSubscriptions() {
-    return $this->cmsRequest('GET', '/subscriptions', Subscription::class, TRUE);
-  }
+    /**
+     * @throws APIException
+     */
+    public function updatePlaylist(Playlist $playlist): ObjectInterface|Playlist|array|null
+    {
+        $playlist->fieldUnchanged('id');
+        return $this->cmsRequest('PATCH', '/playlists/' . $playlist->getId(), Playlist::class, false, $playlist);
+    }
 
-  /**
-   * @param string $subscription_id
-   * @return Subscription
-   * @throws APIException
-   */
-  public function getSubscription($subscription_id) {
-    return $this->cmsRequest('GET', "/subscriptions/{$subscription_id}", Subscription::class);
-  }
+    /**
+     * @throws APIException
+     */
+    public function deletePlaylist(string $playlistId): void
+    {
+        $this->cmsRequest('DELETE', '/playlists/' . $playlistId, null);
+    }
 
-  /**
-   * @param SubscriptionRequest $request
-   * @return Subscription|null
-   * @throws APIException
-   */
-  public function createSubscription(SubscriptionRequest $request) {
-    return $this->cmsRequest('POST', '/subscriptions', Subscription::class, FALSE, $request);
-  }
+    /**
+     * @throws APIException
+     */
+    public function getVideoCountInPlaylist(string $playlistId): ?int
+    {
+        /** @var array $result */
+        $result = $this->cmsRequest('GET', '/counts/playlists/' . $playlistId . '/videos', null);
+        if ($result && !empty($result['count'])) {
+            return $result['count'];
+        }
+        return null;
+    }
 
-  /**
-   * @param string $subscription_id
-   * @throws APIException
-   */
-  public function deleteSubscription($subscription_id) {
-    $this->cmsRequest('DELETE', "/subscriptions/{$subscription_id}", NULL);
-  }
+    /**
+     * @throws APIException
+     */
+    public function getVideosInPlaylist(string $playlistId): ObjectInterface|array|null
+    {
+        return $this->cmsRequest('GET', '/playlists/' . $playlistId . '/videos', Video::class, true);
+    }
 
-  /**
-   * @param     $folder_id
-   * @param int $limit
-   * @return ObjectInterface|ObjectInterface[]|null
-   * @throws APIException
-   */
-  public function getVideosInFolder($folder_id, $limit = 20) {
-    return $this->cmsRequest('GET', '/folders/' . $folder_id . '/videos?limit=' . $limit, Video::class, TRUE);
-  }
+    /**
+     * @throws APIException
+     */
+    public function getSubscriptions(): ObjectInterface|array|null
+    {
+        return $this->cmsRequest('GET', '/subscriptions', Subscription::class, true);
+    }
 
-  /**
-   * @param string $folder_id
-   * @param int    $video_id
-   * @throws APIException
-   */
-  public function addVideoToFolder($folder_id, $video_id) {
-    $this->cmsRequest('PUT', '/folders/' . $folder_id . '/videos/' . $video_id, NULL);
-  }
+    /**
+     * @throws APIException
+     */
+    public function getSubscription(string $subscriptionId): ObjectInterface|Subscription|array|null
+    {
+        return $this->cmsRequest('GET', '/subscriptions/' . $subscriptionId, Subscription::class);
+    }
+
+    /**
+     * @throws APIException
+     */
+    public function createSubscription(SubscriptionRequest $request): ObjectInterface|Subscription|array|null
+    {
+        return $this->cmsRequest('POST', '/subscriptions', Subscription::class, false, $request);
+    }
+
+    /**
+     * @throws APIException
+     */
+    public function deleteSubscription(string $subscriptionId): void
+    {
+        $this->cmsRequest('DELETE', '/subscriptions/' . $subscriptionId, null);
+    }
+
+    /**
+     * @param int $limit between 1 and 100
+     * @throws APIException
+     */
+    public function getVideosInFolder(string $folderId, int $limit = 20, int $page = 1): ObjectInterface|array|null
+    {
+        $offset = ($page - 1) * $limit;
+        return $this->cmsRequest('GET', '/folders/' . $folderId . '/videos?limit=' . $limit . '&offset=' . $offset, Video::class, true);
+    }
+
+    /**
+     * @throws APIException
+     */
+    public function addVideoToFolder(string $folderId, int $videoId): void
+    {
+        $this->cmsRequest('PUT', '/folders/' . $folderId . '/videos/' . $videoId, null);
+    }
+
+    /**
+     * @throws APIException
+     */
+    protected function cmsRequest(string $method, string $endpoint, ?string $result, bool $isArray = false, ObjectInterface|null $post = null): ObjectInterface|array|null
+    {
+        return $this->client->request($method, '1', 'cms', $this->account, $endpoint, $result, $isArray, $post);
+    }
 }

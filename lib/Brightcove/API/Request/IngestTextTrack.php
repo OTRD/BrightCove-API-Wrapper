@@ -5,132 +5,90 @@ namespace Brightcove\API\Request;
 use Brightcove\Item\ObjectBase;
 
 /**
- * Class IngestTextTrack
- *
- * @package Brightcove\API\Request
  * @api
  */
-class IngestTextTrack extends ObjectBase {
+class IngestTextTrack extends ObjectBase
+{
+    protected string $url;
 
-  /**
-   * @var string
-   */
-  protected $url;
+    protected string $srcLang;
 
-  /**
-   * @var string
-   */
-  protected $srclang;
+    protected string $label;
 
-  /**
-   * @var string
-   */
-  protected $label;
+    /**
+     * allowed values: captions | subtitles | descriptions | chapters | metadata
+     */
+    protected string $kind;
 
-  /**
-   * allowed values: captions | subtitles | descriptions | chapters | metadata
-   *
-   * @var string
-   */
-  protected $kind;
+    protected bool $default;
 
-  /**
-   * @var boolean
-   */
-  protected $default;
+    public function applyJSON(array $json): void
+    {
+        parent::applyJSON($json);
+        $this->applyProperty($json, 'url');
+        $this->applyProperty($json, 'srclang');
+        $this->applyProperty($json, 'label');
+        $this->applyProperty($json, 'kind');
+        $this->applyProperty($json, 'default');
+    }
 
-  public function applyJSON(array $json) {
-    parent::applyJSON($json);
-    $this->applyProperty($json, 'url');
-    $this->applyProperty($json, 'srclang');
-    $this->applyProperty($json, 'label');
-    $this->applyProperty($json, 'kind');
-    $this->applyProperty($json, 'default');
-  }
+    public function getUrl(): string
+    {
+        return $this->url;
+    }
 
-  /**
-   * @return string
-   */
-  public function getUrl() {
-    return $this->url;
-  }
+    public function setUrl(string $url): self
+    {
+        $this->url = $url;
+        $this->fieldChanged('url');
+        return $this;
+    }
 
-  /**
-   * @param string $url
-   * @return IngestTextTrack
-   */
-  public function setUrl($url) {
-    $this->url = $url;
-    $this->fieldChanged('url');
-    return $this;
-  }
+    public function getSrcLang(): string
+    {
+        return $this->srcLang;
+    }
 
-  /**
-   * @return string
-   */
-  public function getSrclang() {
-    return $this->srclang;
-  }
+    public function setSrcLang(string $srcLang): self
+    {
+        $this->srcLang = $srcLang;
+        $this->fieldChanged('srclang');
+        return $this;
+    }
 
-  /**
-   * @param string $srclang
-   * @return IngestTextTrack
-   */
-  public function setSrclang($srclang) {
-    $this->srclang = $srclang;
-    $this->fieldChanged('srclang');
-    return $this;
-  }
+    public function getLabel(): string
+    {
+        return $this->label;
+    }
 
-  /**
-   * @return string
-   */
-  public function getLabel() {
-    return $this->label;
-  }
+    public function setLabel(string $label): self
+    {
+        $this->label = $label;
+        $this->fieldChanged('label');
+        return $this;
+    }
 
-  /**
-   * @param string $label
-   * @return IngestTextTrack
-   */
-  public function setLabel($label) {
-    $this->label = $label;
-    $this->fieldChanged('label');
-    return $this;
-  }
+    public function getKind(): string
+    {
+        return $this->kind;
+    }
 
-  /**
-   * @return string
-   */
-  public function getKind() {
-    return $this->kind;
-  }
+    public function setKind(string $kind): self
+    {
+        $this->kind = $kind;
+        $this->fieldChanged('kind');
+        return $this;
+    }
 
-  /**
-   * @param string $kind
-   * @return IngestTextTrack
-   */
-  public function setKind($kind) {
-    $this->kind = $kind;
-    $this->fieldChanged('kind');
-    return $this;
-  }
+    public function isDefault(): bool
+    {
+        return $this->default;
+    }
 
-  /**
-   * @return boolean
-   */
-  public function isDefault() {
-    return $this->default;
-  }
-
-  /**
-   * @param boolean $default
-   * @return IngestTextTrack
-   */
-  public function setDefault($default) {
-    $this->default = $default;
-    $this->fieldChanged('default');
-    return $this;
-  }
-
+    public function setDefault(bool $default): self
+    {
+        $this->default = $default;
+        $this->fieldChanged('default');
+        return $this;
+    }
 }

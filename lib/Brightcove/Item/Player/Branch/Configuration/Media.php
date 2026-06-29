@@ -5,109 +5,72 @@ namespace Brightcove\Item\Player\Branch\Configuration;
 use Brightcove\Item\ObjectBase;
 
 /**
- * Class Media
- *
- * @package Brightcove\Item\Player\Branch\Configuration
  * @api
  */
-class Media extends ObjectBase {
+class Media extends ObjectBase
+{
+    protected string $src;
 
-  /**
-   * @var string
-   */
-  protected $src;
+    protected array $poster;
 
-  /**
-   * @var string[]
-   */
-  protected $poster;
+    protected array $sources;
 
-  /**
-   * @var MediaSource[]
-   */
-  protected $sources;
+    protected array $tracks;
 
-  /**
-   * @var Track[]
-   */
-  protected $tracks;
+    public function applyJSON(array $json): void
+    {
+        parent::applyJSON($json);
 
-  public function applyJSON(array $json) {
-    parent::applyJSON($json);
+        $this->applyProperty($json, 'src');
+        $this->applyProperty($json, 'poster');
+        $this->applyProperty($json, 'sources', null, MediaSource::class, true);
+        $this->applyProperty($json, 'tracks', null, Track::class, true);
+    }
 
-    $this->applyProperty($json, 'src');
-    $this->applyProperty($json, 'poster');
-    $this->applyProperty($json, 'sources', NULL, MediaSource::class, TRUE);
-    $this->applyProperty($json, 'tracks', NULL, Track::class, TRUE);
-  }
+    public function getSrc(): string
+    {
+        return $this->src;
+    }
 
-  /**
-   * @return string
-   */
-  public function getSrc() {
-    return $this->src;
-  }
+    public function setSrc(string $src): self
+    {
+        $this->src = $src;
+        $this->fieldChanged('name');
+        return $this;
+    }
 
-  /**
-   * @param string $src
-   *
-   * @return Media
-   */
-  public function setSrc($src) {
-    $this->src = $src;
-    $this->fieldChanged('name');
-    return $this;
-  }
+    public function getPoster(): array
+    {
+        return $this->poster;
+    }
 
-  /**
-   * @return array
-   */
-  public function getPoster() {
-    return $this->poster;
-  }
+    public function setPoster(array $poster): self
+    {
+        $this->poster = $poster;
+        $this->fieldChanged('poster');
+        return $this;
+    }
 
-  /**
-   * @param array $poster
-   * @return Media
-   */
-  public function setPoster(array $poster) {
-    $this->poster = $poster;
-    $this->fieldChanged('poster');
-    return $this;
-  }
+    public function getSources(): array
+    {
+        return $this->sources;
+    }
 
-  /**
-   * @return MediaSource[]
-   */
-  public function getSources() {
-    return $this->sources;
-  }
+    public function setSources(array $sources): self
+    {
+        $this->sources = $sources;
+        $this->fieldChanged('sources');
+        return $this;
+    }
 
-  /**
-   * @param MediaSource[] $sources
-   * @return Media
-   */
-  public function setSources(array $sources) {
-    $this->sources = $sources;
-    $this->fieldChanged('sources');
-    return $this;
-  }
+    public function getTracks(): array
+    {
+        return $this->tracks;
+    }
 
-  /**
-   * @return Track[]
-   */
-  public function getTracks() {
-    return $this->tracks;
-  }
-
-  /**
-   * @param Track[] $tracks
-   *
-   * @return Media
-   */
-  public function setTracks($tracks) {
-    $this->tracks = $tracks;
-    return $this;
-  }
-
+    public function setTracks(array $tracks): self
+    {
+        $this->tracks = $tracks;
+        return $this;
+    }
 }
