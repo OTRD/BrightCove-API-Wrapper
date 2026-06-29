@@ -5,60 +5,43 @@ namespace Brightcove\Item\Player\Branch\Configuration;
 use Brightcove\Item\ObjectBase;
 
 /**
- * Class PlayerTemplate
- *
- * @package Brightcove\Item\Player\Branch\Configuration
  * @api
  */
-class PlayerTemplate extends ObjectBase {
-  /**
-   * @var string
-   */
-  protected $name;
+class PlayerTemplate extends ObjectBase
+{
+    protected string $name;
 
-  /**
-   * @var string
-   */
-  protected $version;
+    protected string $version;
 
-  public function applyJSON(array $json) {
-    parent::applyJSON($json);
+    public function applyJSON(array $json): void
+    {
+        parent::applyJSON($json);
 
-    $this->applyProperty($json, 'name');
-    $this->applyProperty($json, 'version');
-  }
+        $this->applyProperty($json, 'name');
+        $this->applyProperty($json, 'version');
+    }
 
-  /**
-   * @return string
-   */
-  public function getName() {
-    return $this->name;
-  }
+    public function getName(): string
+    {
+        return $this->name;
+    }
 
-  /**
-   * @param string $name
-   * @return PlayerTemplate
-   */
-  public function setName($name) {
-    $this->name = $name;
-    $this->fieldChanged('name');
-    return $this;
-  }
+    public function setName(string $name): self
+    {
+        $this->name = $name;
+        $this->fieldChanged('name');
+        return $this;
+    }
 
-  /**
-   * @return string
-   */
-  public function getVersion() {
-    return $this->version;
-  }
+    public function getVersion(): string
+    {
+        return $this->version;
+    }
 
-  /**
-   * @param string $version
-   * @return PlayerTemplate
-   */
-  public function setVersion($version) {
-    $this->version = $version;
-    $this->fieldChanged('version');
-    return $this;
-  }
+    public function setVersion(string $version): self
+    {
+        $this->version = $version;
+        $this->fieldChanged('version');
+        return $this;
+    }
 }

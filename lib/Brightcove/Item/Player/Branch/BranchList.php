@@ -5,60 +5,43 @@ namespace Brightcove\Item\Player\Branch;
 use Brightcove\Item\ObjectBase;
 
 /**
- * Class BranchList
- *
- * @package Brightcove\Item\Player\Branch
  * @api
  */
-class BranchList extends ObjectBase {
-  /**
-   * @var Branch
-   */
-  protected $master;
+class BranchList extends ObjectBase
+{
+    protected Branch $master;
 
-  /**
-   * @var Branch
-   */
-  protected $preview;
+    protected Branch $preview;
 
-  public function applyJSON(array $json) {
-    parent::applyJSON($json);
+    public function applyJSON(array $json): void
+    {
+        parent::applyJSON($json);
 
-    $this->applyProperty($json, 'master', NULL, Branch::class);
-    $this->applyProperty($json, 'preview', NULL, Branch::class);
-  }
+        $this->applyProperty($json, 'master', null, Branch::class);
+        $this->applyProperty($json, 'preview', null, Branch::class);
+    }
 
-  /**
-   * @return Branch
-   */
-  public function getMaster() {
-    return $this->master;
-  }
+    public function getMaster(): Branch
+    {
+        return $this->master;
+    }
 
-  /**
-   * @param Branch $master
-   * @return BranchList
-   */
-  public function setMaster(Branch $master) {
-    $this->master = $master;
-    $this->fieldChanged('master');
-    return $this;
-  }
+    public function setMaster(Branch $master): self
+    {
+        $this->master = $master;
+        $this->fieldChanged('master');
+        return $this;
+    }
 
-  /**
-   * @return Branch
-   */
-  public function getPreview() {
-    return $this->preview;
-  }
+    public function getPreview(): Branch
+    {
+        return $this->preview;
+    }
 
-  /**
-   * @param Branch $preview
-   * @return BranchList
-   */
-  public function setPreview(Branch $preview) {
-    $this->preview = $preview;
-    $this->fieldChanged('preview');
-    return $this;
-  }
+    public function setPreview(Branch $preview): self
+    {
+        $this->preview = $preview;
+        $this->fieldChanged('preview');
+        return $this;
+    }
 }

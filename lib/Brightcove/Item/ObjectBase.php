@@ -2,188 +2,135 @@
 
 namespace Brightcove\Item;
 
-/**
- * Base object which implements most of a needed methods to satisfy ObjectInterface.
- */
-class ObjectBase implements ObjectInterface {
-  /**
-   * This internal list keeps track of the changed fields.
-   *
-   * This is necessary bookeeping for patchJSON().
-   *
-   * @var array
-   */
-  private $changedFields = [];
+use function get_object_vars;
 
-  /**
-   * Key-value pairs of field aliases. This will be used when the field gets serialized.
-   *
-   * @var array
-   */
-  protected $fieldAliases = [];
+class ObjectBase implements ObjectInterface
+{
+    protected array $fieldAliases = [];
 
-  /**
-   * Marks a field as changed.
-   *
-   * All property setters should call this function.
-   *
-   * @param string $field_name
-   */
-  public function fieldChanged($field_name) {
-    $this->changedFields[] = $field_name;
-  }
+    /**
+     * This is necessary bookkeeping for patchJSON().
+     */
+    private array $changedFields = [];
 
-  /**
-   * Marks a field or fields unchanged.
-   *
-   * @param $field_name
-   */
-  public function fieldUnchanged($field_name) {
-    $fields = func_get_args();
-    $this->changedFields = array_diff($this->changedFields, $fields);
-  }
-
-  /**
-   * Resolves the field name alias if there's any.
-   *
-   * @param string $name
-   * @return string
-   */
-  protected function canonicalFieldName($name) {
-    return isset($this->fieldAliases[$name]) ? $this->fieldAliases[$name] : $name;
-  }
-
-  /**
-   * @return array
-   */
-  public function postJSON() {
-    $data = [];
-    foreach ($this as $field => $val) {
-      if ($field === 'changedFields' || $field === 'fieldAliases' || $val === NULL) {
-        continue;
-      }
-      $field = $this->canonicalFieldName($field);
-      if ($val instanceof ObjectInterface) {
-        $data[$field] = $val->postJSON();
-      }
-      else if (is_array($val)) {
-        $data[$field] = [];
-        foreach ($val as $k => $v) {
-          if ($v instanceof ObjectInterface) {
-            $data[$field][$k] = $v->postJSON();
-          }
-          else {
-            $data[$field][$k] = $v;
-          }
+    public static function fromJSON(array|string $json): static
+    {
+        if (is_string($json)) {
+            $json = json_decode($json, true);
         }
-      } else {
-        $data[$field] = $val;
-      }
+
+        $ret = new (static::class)();
+        $ret->applyJSON($json);
+
+        return $ret;
     }
-    return $data;
-  }
 
-  /**
-   * @return array
-   */
-  public function patchJSON() {
-    $data = [];
-    foreach ($this->changedFields as $field) {
-      $val = $this->{$field};
-      if ($val === NULL) {
-        continue;
-      }
+    /**
+     * All property setters should call this function.
+     */
+    public function fieldChanged(string $fieldName): void
+    {
+        $this->changedFields[] = $fieldName;
+    }
 
-      $field = $this->canonicalFieldName($field);
+    public function fieldUnchanged(string $fieldName): void
+    {
+        $fields = func_get_args();
+        $this->changedFields = array_diff($this->changedFields, $fields);
+    }
 
-      if ($val instanceof ObjectInterface) {
-        $data[$field] = $val->patchJSON();
-      } else if (is_array($val)) {
-        $data[$field] = [];
-        foreach ($val as $k => $v) {
-          if ($v instanceof ObjectInterface) {
-            $data[$field][$k] = $v->patchJSON();
-          } else {
-            $data[$field][$k] = $v;
-          }
+    public function postJSON(): array
+    {
+        $data = [];
+        foreach (get_object_vars($this) as $field => $val) {
+            if ($field === 'changedFields' || $field === 'fieldAliases' || $val === null) {
+                continue;
+            }
+            $field = $this->canonicalFieldName($field);
+            if ($val instanceof ObjectInterface) {
+                $data[$field] = $val->postJSON();
+            } elseif (is_array($val)) {
+                $data[$field] = [];
+                foreach ($val as $k => $v) {
+                    if ($v instanceof ObjectInterface) {
+                        $data[$field][$k] = $v->postJSON();
+                    } else {
+                        $data[$field][$k] = $v;
+                    }
+                }
+            } else {
+                $data[$field] = $val;
+            }
         }
-      } else {
-        $data[$field] = $val;
-      }
+        return $data;
     }
 
-    $this->changedFields = [];
+    public function patchJSON(): array
+    {
+        $data = [];
+        foreach ($this->changedFields as $field) {
+            $val = $this->{$field};
+            if ($val === null) {
+                continue;
+            }
 
-    return $data;
-  }
+            $field = $this->canonicalFieldName($field);
 
-  /**
-   * @param array $json
-   */
-  public function applyJSON(array $json) {}
-
-  /**
-   * Helper method for applyJSON().
-   *
-   * Applies exactly one property on $this.
-   *
-   * @param array $json
-   *   The full JSON array, decoded as an associative array.
-   * @param string $name
-   *   The name of the property on $this.
-   * @param null|string $json_name
-   *   The name of the JSON property. If null, then it is the
-   *   same as $name.
-   * @param null|string $classname
-   *   The type of the property. If null, the JSON data will be
-   *   copied as it is. If it's a string, it will be instantiated
-   *   as a class, which implements ObjectInterface.
-   * @param bool $is_array
-   *   If the property is an array. This will be only used
-   *   when $classname is not null.
-   */
-  protected function applyProperty(array $json, $name, $json_name = NULL, $classname = NULL, $is_array = FALSE) {
-    if ($json_name === NULL) {
-      $json_name = $name;
-    }
-    if (!isset($json[$json_name])) {
-      return;
-    }
-
-    if ($classname === NULL) {
-      $this->$name = $json[$json_name];
-    }
-    else {
-      if ($is_array) {
-        $arr = [];
-        foreach ($json[$json_name] as $k => $v) {
-          $class = new $classname();
-          $class->applyJSON($v);
-          $arr[$k] = $class;
+            if ($val instanceof ObjectInterface) {
+                $data[$field] = $val->patchJSON();
+            } elseif (is_array($val)) {
+                $data[$field] = [];
+                foreach ($val as $k => $v) {
+                    if ($v instanceof ObjectInterface) {
+                        $data[$field][$k] = $v->patchJSON();
+                    } else {
+                        $data[$field][$k] = $v;
+                    }
+                }
+            } else {
+                $data[$field] = $val;
+            }
         }
-        $this->$name = $arr;
-      }
-      else {
-        $class = new $classname();
-        $class->applyJSON($json[$json_name]);
-        $this->$name = $class;
-      }
-    }
-  }
 
-  /**
-   * @param array|string $json
-   *
-   * @return static
-   */
-  public static function fromJSON($json) {
-    if (is_string($json)) {
-      $json = json_decode($json, TRUE);
+        $this->changedFields = [];
+
+        return $data;
     }
 
-    $ret = new static();
-    $ret->applyJSON($json);
+    public function applyJSON(array $json): void
+    {
+    }
 
-    return $ret;
-  }
+    protected function canonicalFieldName(string $name): string
+    {
+        return $this->fieldAliases[$name] ?? $name;
+    }
+
+    protected function applyProperty(array $json, string $name, ?string $jsonName = null, ?string $className = null, bool $isArray = false): void
+    {
+        if ($jsonName === null) {
+            $jsonName = $name;
+        }
+        if (!isset($json[$jsonName])) {
+            return;
+        }
+
+        if ($className === null) {
+            $this->$name = $json[$jsonName];
+        } elseif ($isArray) {
+            $arr = [];
+            foreach ($json[$jsonName] as $k => $v) {
+                /** @var ObjectInterface $class */
+                $class = new $className();
+                $class->applyJSON($v);
+                $arr[$k] = $class;
+            }
+            $this->$name = $arr;
+        } else {
+            /** @var ObjectInterface $class */
+            $class = new $className();
+            $class->applyJSON($json[$jsonName]);
+            $this->$name = $class;
+        }
+    }
 }

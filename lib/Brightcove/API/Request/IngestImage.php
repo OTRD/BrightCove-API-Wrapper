@@ -5,82 +5,57 @@ namespace Brightcove\API\Request;
 use Brightcove\Item\ObjectBase;
 
 /**
- * Class IngestImage
- *
- * @package Brightcove\API\Request
  * @api
  */
-class IngestImage extends ObjectBase {
-  /**
-   * @var string
-   */
-  protected $url;
+class IngestImage extends ObjectBase
+{
+    protected string $url;
 
-  /**
-   * @var int
-   */
-  protected $width;
+    protected int $width;
 
-  /**
-   * @var int
-   */
-  protected $height;
+    protected int $height;
 
-  public function applyJSON(array $json) {
-    parent::applyJSON($json);
-    $this->applyProperty($json, 'url');
-    $this->applyProperty($json, 'width');
-    $this->applyProperty($json, 'height');
-  }
+    public function applyJSON(array $json): void
+    {
+        parent::applyJSON($json);
+        $this->applyProperty($json, 'url');
+        $this->applyProperty($json, 'width');
+        $this->applyProperty($json, 'height');
+    }
 
-  /**
-   * @return string
-   */
-  public function getUrl() {
-    return $this->url;
-  }
+    public function getUrl(): string
+    {
+        return $this->url;
+    }
 
-  /**
-   * @param string $url
-   * @return IngestImage
-   */
-  public function setUrl($url) {
-    $this->url = $url;
-    $this->fieldChanged('url');
-    return $this;
-  }
+    public function setUrl(string $url): self
+    {
+        $this->url = $url;
+        $this->fieldChanged('url');
+        return $this;
+    }
 
-  /**
-   * @return int
-   */
-  public function getWidth() {
-    return $this->width;
-  }
+    public function getWidth(): int
+    {
+        return $this->width;
+    }
 
-  /**
-   * @param int $width
-   * @return IngestImage
-   */
-  public function setWidth($width) {
-    $this->width = $width;
-    $this->fieldChanged('width');
-    return $this;
-  }
+    public function setWidth(int $width): self
+    {
+        $this->width = $width;
+        $this->fieldChanged('width');
+        return $this;
+    }
 
-  /**
-   * @return int
-   */
-  public function getHeight() {
-    return $this->height;
-  }
+    public function getHeight(): int
+    {
+        return $this->height;
+    }
 
-  /**
-   * @param int $height
-   * @return IngestImage
-   */
-  public function setHeight($height) {
-    $this->height = $height;
-    $this->fieldChanged('height');
-    return $this;
-  }
+    public function setHeight(int $height): self
+    {
+        $this->height = $height;
+        $this->fieldChanged('height');
+        return $this;
+    }
 }

@@ -2,39 +2,29 @@
 
 namespace Brightcove\API\Exception;
 
+use Exception;
+
 /**
- * Class APIException
- *
- * @package Brightcove\API\Exception
  * @api
  */
-class APIException extends \Exception {
-  protected $responseBody;
+class APIException extends Exception
+{
+    protected string $responseBody;
 
-  /**
-   * @return string
-   */
-  public function getResponseBody() {
-    return $this->responseBody;
-  }
+    public function __construct(string $message = "", int $code = 0, ?Exception $previous = null, string $responseBody = '')
+    {
+        parent::__construct($message, $code, $previous);
+        $this->setResponseBody($responseBody);
+    }
 
-  /**
-   * @param string $responseBody
-   * @return APIException
-   */
-  public function setResponseBody($responseBody) {
-    $this->responseBody = $responseBody;
-    return $this;
-  }
+    public function getResponseBody(): string
+    {
+        return $this->responseBody;
+    }
 
-  /**
-   * @param string $message
-   * @param int $code
-   * @param \Exception $previous
-   * @param string $responseBody
-   */
-  public function __construct($message = "", $code = 0, \Exception $previous = NULL, $responseBody = '') {
-    parent::__construct($message, $code, $previous);
-    $this->setResponseBody($responseBody);
-  }
+    public function setResponseBody(string $responseBody): self
+    {
+        $this->responseBody = $responseBody;
+        return $this;
+    }
 }

@@ -5,85 +5,55 @@ namespace Brightcove\Item\Player\Branch\Configuration;
 use Brightcove\Item\ObjectBase;
 
 /**
- * Class Track
- *
- * @package Brightcove\Item\Player\Branch\Configuration
  * @api
  */
-class Track extends ObjectBase {
+class Track extends ObjectBase
+{
+    protected string $label;
 
-  /**
-   * @var string
-   */
-  protected $label;
+    protected string $src;
 
-  /**
-   * @var string
-   */
-  protected $src;
+    protected string $srcLang;
 
-  /**
-   * @var string
-   */
-  protected $srclang;
+    public function applyJSON(array $json): void
+    {
+        parent::applyJSON($json);
 
-  public function applyJSON(array $json) {
-    parent::applyJSON($json);
+        $this->applyProperty($json, 'label');
+        $this->applyProperty($json, 'src');
+        $this->applyProperty($json, 'srclang');
+    }
 
-    $this->applyProperty($json, 'label');
-    $this->applyProperty($json, 'src');
-    $this->applyProperty($json, 'srclang');
-  }
+    public function getLabel(): string
+    {
+        return $this->label;
+    }
 
-  /**
-   * @return string
-   */
-  public function getLabel() {
-    return $this->label;
-  }
+    public function setLabel(string $label): self
+    {
+        $this->label = $label;
+        return $this;
+    }
 
-  /**
-   * @param string $label
-   *
-   * @return Track
-   */
-  public function setLabel($label) {
-    $this->label = $label;
-    return $this;
-  }
+    public function getSrc(): string
+    {
+        return $this->src;
+    }
 
-  /**
-   * @return string
-   */
-  public function getSrc() {
-    return $this->src;
-  }
+    public function setSrc(string $src): self
+    {
+        $this->src = $src;
+        return $this;
+    }
 
-  /**
-   * @param string $src
-   *
-   * @return Track
-   */
-  public function setSrc($src) {
-    $this->src = $src;
-    return $this;
-  }
+    public function getSrcLang(): string
+    {
+        return $this->srcLang;
+    }
 
-  /**
-   * @return string
-   */
-  public function getSrclang() {
-    return $this->srclang;
-  }
-
-  /**
-   * @param string $srclang
-   *
-   * @return Track
-   */
-  public function setSrclang($srclang) {
-    $this->srclang = $srclang;
-    return $this;
-  }
-
+    public function setSrcLang(string $srcLang): self
+    {
+        $this->srcLang = $srcLang;
+        return $this;
+    }
 }

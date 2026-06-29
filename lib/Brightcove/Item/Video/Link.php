@@ -5,62 +5,44 @@ namespace Brightcove\Item\Video;
 use Brightcove\Item\ObjectBase;
 
 /**
- * Creates a link object which has two separeted string field.
+ * Creates a link object which has two separated string field.
  *
  * @api
  */
-class Link extends ObjectBase {
-  public function applyJSON(array $json) {
-    parent::applyJSON($json);
-    $this->applyProperty($json, 'url');
-    $this->applyProperty($json, 'text');
-  }
+class Link extends ObjectBase
+{
+    protected string $text;
 
-  /**
-   * Display text for the link
-   *
-   * @var string
-   */
-  protected $text;
+    protected string $url;
 
-  /**
-   * URL for the link
-   *
-   * @var string
-   */
-  protected $url;
+    public function applyJSON(array $json): void
+    {
+        parent::applyJSON($json);
+        $this->applyProperty($json, 'url');
+        $this->applyProperty($json, 'text');
+    }
 
-  /**
-   * @return string
-   */
-  public function getText() {
-    return $this->text;
-  }
+    public function getText(): string
+    {
+        return $this->text;
+    }
 
-  /**
-   * @param string $text
-   * @return $this
-   */
-  public function setText($text) {
-    $this->text = $text;
-    $this->fieldChanged('text');
-    return $this;
-  }
+    public function setText(string $text): self
+    {
+        $this->text = $text;
+        $this->fieldChanged('text');
+        return $this;
+    }
 
-  /**
-   * @return string
-   */
-  public function getUrl() {
-    return $this->url;
-  }
+    public function getUrl(): string
+    {
+        return $this->url;
+    }
 
-  /**
-   * @param string $url
-   * @return $this
-   */
-  public function setUrl($url) {
-    $this->url = $url;
-    $this->fieldChanged('url');
-    return $this;
-  }
+    public function setUrl(string $url): self
+    {
+        $this->url = $url;
+        $this->fieldChanged('url');
+        return $this;
+    }
 }

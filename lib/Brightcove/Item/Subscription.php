@@ -5,60 +5,42 @@ namespace Brightcove\Item;
 use Brightcove\API\Request\SubscriptionRequest;
 
 /**
- * Class Subscription
- *
- * @package Brightcove\Item
  * @api
  */
-class Subscription extends SubscriptionRequest {
+class Subscription extends SubscriptionRequest
+{
+    protected string $id;
 
-  /**
-   * @var string
-   */
-  protected $id;
+    protected string $service_account;
 
-  /**
-   * @var string
-   */
-  protected $service_account;
+    public function applyJSON(array $json): void
+    {
+        parent::applyJSON($json);
+        $this->applyProperty($json, 'id');
+        $this->applyProperty($json, 'service_account');
+    }
 
-  public function applyJSON(array $json) {
-    parent::applyJSON($json);
-    $this->applyProperty($json, 'id');
-    $this->applyProperty($json, 'service_account');
-  }
+    public function getId(): string
+    {
+        return $this->id;
+    }
 
-  /**
-   * @return string
-   */
-  public function getId() {
-    return $this->id;
-  }
+    public function setId(string $id): self
+    {
+        $this->id = $id;
+        $this->fieldChanged('id');
+        return $this;
+    }
 
-  /**
-   * @param string $id
-   * @return Subscription
-   */
-  public function setId($id) {
-    $this->id = $id;
-    $this->fieldChanged('id');
-    return $this;
-  }
+    public function getServiceAccount(): string
+    {
+        return $this->service_account;
+    }
 
-  /**
-   * @return string
-   */
-  public function getServiceAccount() {
-    return $this->service_account;
-  }
-
-  /**
-   * @param string $service_account
-   * @return Subscription
-   */
-  public function setServiceAccount($service_account) {
-    $this->service_account = $service_account;
-    $this->fieldChanged('service_account');
-    return $this;
-  }
+    public function setServiceAccount(string $service_account): self
+    {
+        $this->service_account = $service_account;
+        $this->fieldChanged('service_account');
+        return $this;
+    }
 }
