@@ -10,56 +10,61 @@ use Brightcove\Item\ObjectBase;
  * @package Brightcove\API\Request
  * @api
  */
-class SubscriptionRequest extends ObjectBase {
+class SubscriptionRequest extends ObjectBase
+{
+    /**
+     * @var string
+     */
+    protected $endpoint;
 
-  /**
-   * @var string
-   */
-  protected $endpoint;
+    /**
+     * @var array
+     */
+    protected $events;
 
-  /**
-   * @var array
-   */
-  protected $events;
+    public function applyJSON(array $json): void
+    {
+        parent::applyJSON($json);
+        $this->applyProperty($json, 'endpoint');
+        $this->applyProperty($json, 'events');
+    }
 
-  public function applyJSON(array $json) {
-    parent::applyJSON($json);
-    $this->applyProperty($json, 'endpoint');
-    $this->applyProperty($json, 'events');
-  }
+    /**
+     * @return string
+     */
+    public function getEndpoint()
+    {
+        return $this->endpoint;
+    }
 
-  /**
-   * @return string
-   */
-  public function getEndpoint() {
-    return $this->endpoint;
-  }
+    /**
+     * @param string $endpoint
+     * @return SubscriptionRequest
+     */
+    public function setEndpoint($endpoint)
+    {
+        $this->endpoint = $endpoint;
+        $this->fieldChanged('endpoint');
+        return $this;
+    }
 
-  /**
-   * @param string $endpoint
-   * @return SubscriptionRequest
-   */
-  public function setEndpoint($endpoint) {
-    $this->endpoint = $endpoint;
-    $this->fieldChanged('endpoint');
-    return $this;
-  }
+    /**
+     * @return array
+     */
+    public function getEvents()
+    {
+        return $this->events;
+    }
 
-  /**
-   * @return array
-   */
-  public function getEvents() {
-    return $this->events;
-  }
-
-  /**
-   * @param array $events
-   * @return SubscriptionRequest
-   */
-  public function setEvents(array $events) {
-    $this->events = $events;
-    $this->fieldChanged('events');
-    return $this;
-  }
+    /**
+     * @param array $events
+     * @return SubscriptionRequest
+     */
+    public function setEvents(array $events)
+    {
+        $this->events = $events;
+        $this->fieldChanged('events');
+        return $this;
+    }
 
 }

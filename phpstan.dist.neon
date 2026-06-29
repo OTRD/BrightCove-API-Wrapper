@@ -1,0 +1,13 @@
+parameters:
+    level: 7
+    bootstrapFiles:
+        - vendor/autoload.php
+    paths:
+        - lib
+    excludePaths:
+        analyse:
+            - vendor/*
+    ignoreErrors:
+        - '#no value type specified in iterable type array#'
+        # - '#generic .* does not specify its types#'
+        # - '#getUserIdentifier\(\) should return non-empty-string but returns string#'

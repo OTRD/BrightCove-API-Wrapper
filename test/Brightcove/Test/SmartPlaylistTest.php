@@ -2,139 +2,159 @@
 
 namespace Brightcove\Test;
 
+use Brightcove\API\Exception\APIException;
 use Brightcove\Item\Playlist;
 use Brightcove\Item\Video\Video;
-/**
- * Creating test for the Brightcove SmartPlaylist.
- */
-class SmartPlaylistTest extends TestBase {
+use PHPUnit\Framework\Attributes\Depends;
+use PHPUnit\Framework\Attributes\DoesNotPerformAssertions;
+use Random\RandomException;
 
-  /**
-   * Creates an array[10] filling it up with random video objects
-   * and sets the Tag field with a random string.
-   *
-   * @return Video[]
-   */
-  public function testCreateVideos() {
-    $videos = [];
-    $videoTag[0] = $this->generateRandomString(8);
-    for ($i = 0; $i < 10; $i++) {
-      $video = $this->createRandomVideoObject();
-      $video->setTags($videoTag);
-      $created_video = $this->cms->createVideo($video);
-      $this->assertNotNull($created_video->getId());
-      $videos[] = $created_video;
+class SmartPlaylistTest extends TestBase
+{
+    /**
+     * Creates an array[10] filling it up with random video objects
+     * and sets the Tag field with a random string.
+     *
+     * @throws RandomException
+     */
+    public function testCreateVideos(): array
+    {
+        $videos = [];
+        $videoTag[0] = self::generateRandomString(8);
+
+        for ($i = 0; $i < 10; $i++) {
+            $video = $this->createRandomVideoObject();
+            $video->setTags($videoTag);
+
+            $created_video = $this->cms->createVideo($video);
+
+            $this->assertNotNull($created_video->getId());
+
+            $videos[] = $created_video;
+        }
+
+        return $videos;
     }
-    return $videos;
-  }
 
-  /**
-   * Creates an empty SmartPlaylist, then compares it`s name with the returned playlist`s one.
-   * @depends testCreateVideos
-   * @param Video[] $videos
-   * @return array
-   */
-  public function testCreatePlaylist($videos) {
-    $playlist = $this->createRandomPlaylistObject();
-    $playlist->setType("ALPHABETICAL");
-    $playlist->setName($this->generateRandomString(8));
-    $name = $playlist->getName();
-    $playlist = $this->cms->createPlaylist($playlist);
-    $returnedName = $playlist->getName();
+    /**
+     * @throws RandomException|APIException
+     */
+    #[Depends('testCreateVideos')]
+    public function testCreatePlaylist(array $videos): array
+    {
+        $playlist = $this->createRandomPlaylistObject();
+        $playlist->setType("ALPHABETICAL");
+        $playlist->setName(self::generateRandomString(8));
 
-    $this->assertEquals($name, $returnedName);
+        $name = $playlist->getName();
 
-    return [$playlist, $videos];
-  }
+        $playlist = $this->cms->createPlaylist($playlist);
 
-  /**
-   * Set the SmartPlayist`s Search field
-   * to the same value as the videos` Tag,
-   * then compares with the given one.
-   *
-   * @depends testCreatePlaylist
-   * @param $input[Playlist $playlist, Video[] $videos]
-   * @return array
-   */
-  public function testSetSearchToPlaylist(array $input) {
-    $playlist = $input[0];
-    $videos = $input[1];
-    $videoTag = $videos[0]->getTags();
-    $playlist->setSearch("+tags:"."\"".$videoTag[0]."\"");
-    $search = $playlist->getSearch();
-    $playlist = $this->cms->updatePlaylist($playlist);
-    $returnedSearch = $playlist->getSearch();
+        $this->assertEquals($name, $playlist->getName());
 
-    $this->assertEquals($search, $returnedSearch);
-
-    return [$playlist, $videos];
-  }
-
-  /**
-   * Deletes the videos from the server.
-   *
-   * @depends testSetSearchToPlaylist
-   * @param $input[Playlist $playlist, Video[] $videos]
-   * @return Playlist
-   */
-  public function testDeleteVideos(array $input) {
-    /** @var Playlist $playlist */
-    $playlist = $input[0];
-    /** @var Video[] $videos */
-    $videos = $input[1];
-    foreach($videos as $video) {
-      $this->cms->deleteVideo($video->getId());
+        return [$playlist, $videos];
     }
-    return $playlist;
-  }
 
-  /**
-   * Set the Description field of the SmartPlaylist, then compares with the given one.
-   *
-   * @depends testDeleteVideos
-   * @param Playlist $playlist
-   * @return Playlist
-   */
-  public function testSetDescriptionToPlaylist(Playlist $playlist) {
-    $playlist->setDescription($this->generateRandomString(18));
-    $description = $playlist->getDescription();
-    $playlist = $this->cms->updatePlaylist($playlist);
-    $returnedDescription = $playlist->getDescription();
+    /**
+     * @throws APIException
+     */
+    #[Depends('testCreatePlaylist')]
+    public function testSetSearchToPlaylist(array $input): array
+    {
+        /** @var Playlist $playlist */
+        $playlist = $input[0];
+        /** @var Video[] $videos */
+        $videos = $input[1];
 
-    $this->assertEquals($description, $returnedDescription);
+        $videoTag = $videos[0]->getTags();
 
-    return $playlist;
-  }
+        $playlist->setSearch('+tags:"' . $videoTag[0] . '"');
 
-  /**
-   * Deletes the SmartPlaylist.
-   *
-   * @depends testSetDescriptionToPlaylist
-   * @param Playlist $playlist
-   * @return Playlist
-   */
-  public function testDeletePlaylist(Playlist $playlist) {
-    $this->cms->deletePlaylist($playlist->getId());
-    return $playlist;
-  }
+        $search = $playlist->getSearch();
 
-  /**
-   * Searching for the deleted SmartPlaylist in the remained ones,
-   * if the result is '0', the delete was successful.
-   *
-   * @depends testDeletePlaylist
-   * @param Playlist $playlist
-   */
-  public function testCheckDeletePlaylist(Playlist $playlist) {
-    $playlist_id = $playlist->getId();
-    $this->cms->deletePlaylist($playlist_id);
-    $playlistsList = $this->cms->listPlaylists();
-    $match = 0;
-    foreach ($playlistsList as $plist) {
-      if ($plist->getId() === $playlist_id) {
-        $match++;
-      }
+        $playlist = $this->cms->updatePlaylist($playlist);
+
+        $this->assertEquals($search, $playlist->getSearch());
+
+        return [$playlist, $videos];
     }
-    $this->assertEquals(0, $match, "Playlist has been deleted successfully.");
-  }
+
+    /**
+     * @throws APIException
+     */
+    #[Depends('testSetSearchToPlaylist')]
+    #[DoesNotPerformAssertions]
+    public function testDeleteVideos(array $input): Playlist
+    {
+        /** @var Playlist $playlist */
+        $playlist = $input[0];
+        /** @var Video[] $videos */
+        $videos = $input[1];
+
+        foreach ($videos as $video) {
+            $this->cms->deleteVideo($video->getId());
+        }
+
+        return $playlist;
+    }
+
+    /**
+     * @throws RandomException
+     * @throws APIException
+     */
+    #[Depends('testDeleteVideos')]
+    public function testSetDescriptionToPlaylist(Playlist $playlist): Playlist
+    {
+        $playlist->setDescription(self::generateRandomString(18));
+
+        $description = $playlist->getDescription();
+
+        $playlist = $this->cms->updatePlaylist($playlist);
+
+        $this->assertEquals($description, $playlist->getDescription());
+
+        return $playlist;
+    }
+
+    /**
+     * @throws APIException
+     */
+    #[Depends('testSetDescriptionToPlaylist')]
+    #[DoesNotPerformAssertions]
+    public function testDeletePlaylist(Playlist $playlist): Playlist
+    {
+        $this->cms->deletePlaylist($playlist->getId());
+
+        return $playlist;
+    }
+
+    /**
+     * Searching for the deleted SmartPlaylist in the remaining ones,
+     * if the result is '0', the delete process was successful.
+     *
+     * @throws APIException
+     */
+    #[Depends('testDeletePlaylist')]
+    public function testCheckDeletePlaylist(Playlist $playlist): void
+    {
+        $playlist_id = $playlist->getId();
+
+        $this->cms->deletePlaylist($playlist_id);
+
+        $playlistsList = $this->cms->listPlaylists();
+
+        $match = 0;
+
+        foreach ($playlistsList as $plist) {
+            if ($plist->getId() === $playlist_id) {
+                $match++;
+            }
+        }
+
+        $this->assertEquals(
+            0,
+            $match,
+            "Playlist has been deleted successfully."
+        );
+    }
 }

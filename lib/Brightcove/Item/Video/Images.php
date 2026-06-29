@@ -9,56 +9,61 @@ use Brightcove\Item\ObjectBase;
  *
  * @api
  */
-class Images extends ObjectBase {
+class Images extends ObjectBase
+{
+    /**
+     * @var Image
+     */
+    protected $thumbnail;
 
-  /**
-   * @var Image
-   */
-  protected $thumbnail;
+    /**
+     * @var Image
+     */
+    protected $poster;
 
-  /**
-   * @var Image
-   */
-  protected $poster;
+    public function applyJSON(array $json): void
+    {
+        parent::applyJSON($json);
+        $this->applyProperty($json, 'thumbnail');
+        $this->applyProperty($json, 'poster');
+    }
 
-  public function applyJSON(array $json) {
-    parent::applyJSON($json);
-    $this->applyProperty($json, 'thumbnail');
-    $this->applyProperty($json, 'poster');
-  }
+    /**
+     * @return Image
+     */
+    public function getThumbnail()
+    {
+        return $this->thumbnail;
+    }
 
-  /**
-   * @return Image
-   */
-  public function getThumbnail() {
-    return $this->thumbnail;
-  }
+    /**
+     * @param Image $thumbnail
+     * @return $this
+     */
+    public function setThumbnail(Image $thumbnail)
+    {
+        $this->thumbnail = $thumbnail;
+        $this->fieldChanged('thumbnail');
+        return $this;
+    }
 
-  /**
-   * @param Image $thumbnail
-   * @return $this
-   */
-  public function setThumbnail(Image $thumbnail) {
-    $this->thumbnail = $thumbnail;
-    $this->fieldChanged('thumbnail');
-    return $this;
-  }
+    /**
+     * @return Image
+     */
+    public function getPoster()
+    {
+        return $this->poster;
+    }
 
-  /**
-   * @return Image
-   */
-  public function getPoster() {
-    return $this->poster;
-  }
-
-  /**
-   * @param Image $poster
-   * @return $this
-   */
-  public function setPoster(Image $poster) {
-    $this->poster = $poster;
-    $this->fieldChanged('poster');
-    return $this;
-  }
+    /**
+     * @param Image $poster
+     * @return $this
+     */
+    public function setPoster(Image $poster)
+    {
+        $this->poster = $poster;
+        $this->fieldChanged('poster');
+        return $this;
+    }
 
 }

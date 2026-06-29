@@ -2,15 +2,23 @@
 
 namespace Brightcove\Test;
 
-class Test extends TestBase {
-  public function testHasClientData() {
-    $this->assertTrue((bool) $this->client_id, 'Client ID exists');
-    $this->assertTrue((bool) $this->client_secret, 'Client secret exists');
-    $this->assertTrue((bool) $this->account, 'Account exists');
-  }
+use Brightcove\API\Exception\AuthenticationException;
 
-  public function testAuthorization() {
-    $client = $this->getClient();
-    $this->assertTrue($client->isAuthorized(), 'Client is authorized');
-  }
+class Test extends TestBase
+{
+    public function testHasClientData(): void
+    {
+        $this->assertTrue((bool)$this->clientId, 'Client ID exists');
+        $this->assertTrue((bool)$this->clientSecret, 'Client secret exists');
+        $this->assertTrue((bool)$this->accountId, 'Account exists');
+    }
+
+    /**
+     * @throws AuthenticationException
+     */
+    public function testAuthorization(): void
+    {
+        $client = $this->getClient();
+        $this->assertTrue($client->isAuthorized(), 'Client is authorized');
+    }
 }

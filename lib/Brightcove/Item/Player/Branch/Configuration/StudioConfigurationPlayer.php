@@ -5,108 +5,73 @@ namespace Brightcove\Item\Player\Branch\Configuration;
 use Brightcove\Item\ObjectBase;
 
 /**
- * Class StudioConfigurationPlayer
- *
- * @package Brightcove\Item\Player\Branch\Configuration
  * @api
  */
-class StudioConfigurationPlayer extends ObjectBase {
+class StudioConfigurationPlayer extends ObjectBase
+{
+    protected bool $adjusted;
 
-  /**
-   * @var bool
-   */
-  protected $adjusted;
+    protected string $height;
 
-  /**
-   * @var string
-   */
-  protected $height;
+    protected string $width;
 
-  /**
-   * @var string
-   */
-  protected $width;
+    protected string $units;
 
-  /**
-   * @var string
-   */
-  protected $units;
+    public function applyJSON(array $json): void
+    {
+        parent::applyJSON($json);
 
-  public function applyJSON(array $json) {
-    parent::applyJSON($json);
+        $this->applyProperty($json, 'adjusted');
+        $this->applyProperty($json, 'height');
+        $this->applyProperty($json, 'width');
+        $this->applyProperty($json, 'units');
+    }
 
-    $this->applyProperty($json, 'adjusted');
-    $this->applyProperty($json, 'height');
-    $this->applyProperty($json, 'width');
-    $this->applyProperty($json, 'units');
-  }
+    public function isAdjusted(): bool
+    {
+        return $this->adjusted;
+    }
 
-  /**
-   * @return boolean
-   */
-  public function isAdjusted() {
-    return $this->adjusted;
-  }
+    public function setAdjusted(bool $adjusted): self
+    {
+        $this->adjusted = $adjusted;
+        $this->fieldChanged('adjusted');
+        return $this;
+    }
 
-  /**
-   * @param boolean $adjusted
-   * @return StudioConfigurationPlayer
-   */
-  public function setAdjusted($adjusted) {
-    $this->adjusted = $adjusted;
-    $this->fieldChanged('adjusted');
-    return $this;
-  }
+    public function getHeight(): string
+    {
+        return $this->height;
+    }
 
-  /**
-   * @return string
-   */
-  public function getHeight() {
-    return $this->height;
-  }
+    public function setHeight(string $height): self
+    {
+        $this->height = $height;
+        $this->fieldChanged('height');
+        return $this;
+    }
 
-  /**
-   * @param string $height
-   * @return StudioConfigurationPlayer
-   */
-  public function setHeight($height) {
-    $this->height = $height;
-    $this->fieldChanged('height');
-    return $this;
-  }
+    public function getWidth(): string
+    {
+        return $this->width;
+    }
 
-  /**
-   * @return string
-   */
-  public function getWidth() {
-    return $this->width;
-  }
+    public function setWidth(string $width): self
+    {
+        $this->width = $width;
+        $this->fieldChanged('width');
+        return $this;
+    }
 
-  /**
-   * @param string $width
-   * @return StudioConfigurationPlayer
-   */
-  public function setWidth($width) {
-    $this->width = $width;
-    $this->fieldChanged('width');
-    return $this;
-  }
+    public function getUnits(): string
+    {
+        return $this->units;
+    }
 
-  /**
-   * @return string
-   */
-  public function getUnits() {
-    return $this->units;
-  }
-
-  /**
-   * @param $units
-   * @return StudioConfigurationPlayer
-   */
-  public function setUnits($units) {
-    $this->units = $units;
-    $this->fieldChanged('units');
-    return $this;
-  }
-
+    public function setUnits(string $units): self
+    {
+        $this->units = $units;
+        $this->fieldChanged('units');
+        return $this;
+    }
 }

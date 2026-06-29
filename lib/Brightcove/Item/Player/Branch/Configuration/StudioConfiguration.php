@@ -10,32 +10,35 @@ use Brightcove\Item\ObjectBase;
  * @package Brightcove\Item\Player\Branch\Configuration
  * @api
  */
-class StudioConfiguration extends ObjectBase {
+class StudioConfiguration extends ObjectBase
+{
+    /**
+     * @var StudioConfigurationPlayer
+     */
+    protected $player;
 
-  /**
-   * @var StudioConfigurationPlayer
-   */
-  protected $player;
+    public function applyJSON(array $json): void
+    {
+        parent::applyJSON($json);
+        $this->applyProperty($json, 'player', null, StudioConfigurationPlayer::class);
+    }
 
-  public function applyJSON(array $json) {
-    parent::applyJSON($json);
-    $this->applyProperty($json, 'player', NULL, StudioConfigurationPlayer::class);
-  }
+    /**
+     * @return StudioConfigurationPlayer
+     */
+    public function getPlayer()
+    {
+        return $this->player;
+    }
 
-  /**
-   * @return StudioConfigurationPlayer
-   */
-  public function getPlayer() {
-    return $this->player;
-  }
-
-  /**
-   * @param StudioConfigurationPlayer $player
-   * @return StudioConfiguration
-   */
-  public function setPlayer(StudioConfigurationPlayer $player) {
-    $this->player = $player;
-    $this->fieldChanged('player');
-    return $this;
-  }
+    /**
+     * @param StudioConfigurationPlayer $player
+     * @return StudioConfiguration
+     */
+    public function setPlayer(StudioConfigurationPlayer $player)
+    {
+        $this->player = $player;
+        $this->fieldChanged('player');
+        return $this;
+    }
 }

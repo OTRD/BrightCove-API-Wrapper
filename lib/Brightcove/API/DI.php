@@ -2,30 +2,29 @@
 
 namespace Brightcove\API;
 
-use Brightcove\API\API;
 use Brightcove\API\Exception\APIException;
 use Brightcove\API\Request\IngestRequest;
 use Brightcove\API\Response\IngestResponse;
+use Brightcove\Item\ObjectInterface;
 
 /**
- * Class DI
- *
- * @package Brightcove\API
  * @api
  */
-class DI extends API {
+class DI extends API
+{
+    /**
+     * @throws APIException
+     */
+    public function createIngest(string $videoId, IngestRequest $request): ObjectInterface|IngestResponse|array|null
+    {
+        return $this->diRequest('POST', '/videos/' . $videoId . '/ingest-requests', IngestResponse::class, false, $request);
+    }
 
-  /**
-   * @throws APIException
-   */
-  protected function diRequest($method, $endpoint, $result, $is_array = FALSE, $post = NULL) {
-    return $this->client->request($method, '1', 'ingest', $this->account, $endpoint, $result, $is_array, $post);
-  }
-
-  /**
-   * @return IngestResponse
-   */
-  public function createIngest($video_id, IngestRequest $request) {
-    return $this->diRequest('POST', "/videos/{$video_id}/ingest-requests", IngestResponse::class, FALSE, $request);
-  }
+    /**
+     * @throws APIException
+     */
+    protected function diRequest(string $method, string $endPoint, ?string $result, bool $isArray = false, ObjectInterface|null $post = null): ObjectInterface|array|null
+    {
+        return $this->client->request($method, '1', 'ingestion', $this->account, $endPoint, $result, $isArray, $post);
+    }
 }

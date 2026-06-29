@@ -10,32 +10,36 @@ use Brightcove\Item\ObjectBase;
  * @package Brightcove\Item\Player\Branch\Configuration
  * @api
  */
-class Plugin extends ObjectBase {
-  /**
-   * @var string
-   */
-  protected $name;
+class Plugin extends ObjectBase
+{
+    /**
+     * @var string
+     */
+    protected $name;
 
-  public function applyJSON(array $json) {
-    parent::applyJSON($json);
+    public function applyJSON(array $json): void
+    {
+        parent::applyJSON($json);
 
-    $this->applyProperty($json, 'name');
-  }
+        $this->applyProperty($json, 'name');
+    }
 
-  /**
-   * @return string
-   */
-  public function getName() {
-    return $this->name;
-  }
+    /**
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
 
-  /**
-   * @param string $name
-   * @return Plugin
-   */
-  public function setName($name) {
-    $this->name = $name;
-    $this->fieldChanged('name');
-    return $this;
-  }
+    /**
+     * @param string $name
+     * @return Plugin
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+        $this->fieldChanged('name');
+        return $this;
+    }
 }
