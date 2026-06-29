@@ -5,22 +5,13 @@ namespace Brightcove\API\Request;
 use Brightcove\Item\ObjectBase;
 
 /**
- * Class SubscriptionRequest
- *
- * @package Brightcove\API\Request
  * @api
  */
 class SubscriptionRequest extends ObjectBase
 {
-    /**
-     * @var string
-     */
-    protected $endpoint;
+    protected string $endpoint;
 
-    /**
-     * @var array
-     */
-    protected $events;
+    protected array $events;
 
     public function applyJSON(array $json): void
     {
@@ -29,42 +20,27 @@ class SubscriptionRequest extends ObjectBase
         $this->applyProperty($json, 'events');
     }
 
-    /**
-     * @return string
-     */
-    public function getEndpoint()
+    public function getEndpoint(): string
     {
         return $this->endpoint;
     }
 
-    /**
-     * @param string $endpoint
-     * @return SubscriptionRequest
-     */
-    public function setEndpoint($endpoint)
+    public function setEndpoint(string $endpoint): self
     {
         $this->endpoint = $endpoint;
         $this->fieldChanged('endpoint');
         return $this;
     }
 
-    /**
-     * @return array
-     */
-    public function getEvents()
+    public function getEvents(): array
     {
         return $this->events;
     }
 
-    /**
-     * @param array $events
-     * @return SubscriptionRequest
-     */
-    public function setEvents(array $events)
+    public function setEvents(array $events): self
     {
         $this->events = $events;
         $this->fieldChanged('events');
         return $this;
     }
-
 }

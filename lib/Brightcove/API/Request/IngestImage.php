@@ -5,27 +5,15 @@ namespace Brightcove\API\Request;
 use Brightcove\Item\ObjectBase;
 
 /**
- * Class IngestImage
- *
- * @package Brightcove\API\Request
  * @api
  */
 class IngestImage extends ObjectBase
 {
-    /**
-     * @var string
-     */
-    protected $url;
+    protected string $url;
 
-    /**
-     * @var int
-     */
-    protected $width;
+    protected int $width;
 
-    /**
-     * @var int
-     */
-    protected $height;
+    protected int $height;
 
     public function applyJSON(array $json): void
     {
@@ -35,57 +23,36 @@ class IngestImage extends ObjectBase
         $this->applyProperty($json, 'height');
     }
 
-    /**
-     * @return string
-     */
-    public function getUrl()
+    public function getUrl(): string
     {
         return $this->url;
     }
 
-    /**
-     * @param string $url
-     * @return IngestImage
-     */
-    public function setUrl($url)
+    public function setUrl(string $url): self
     {
         $this->url = $url;
         $this->fieldChanged('url');
         return $this;
     }
 
-    /**
-     * @return int
-     */
-    public function getWidth()
+    public function getWidth(): int
     {
         return $this->width;
     }
 
-    /**
-     * @param int $width
-     * @return IngestImage
-     */
-    public function setWidth($width)
+    public function setWidth(int $width): self
     {
         $this->width = $width;
         $this->fieldChanged('width');
         return $this;
     }
 
-    /**
-     * @return int
-     */
-    public function getHeight()
+    public function getHeight(): int
     {
         return $this->height;
     }
 
-    /**
-     * @param int $height
-     * @return IngestImage
-     */
-    public function setHeight($height)
+    public function setHeight(int $height): self
     {
         $this->height = $height;
         $this->fieldChanged('height');

@@ -5,32 +5,17 @@ namespace Brightcove\Item\Player\Branch\Configuration;
 use Brightcove\Item\ObjectBase;
 
 /**
- * Class Media
- *
- * @package Brightcove\Item\Player\Branch\Configuration
  * @api
  */
 class Media extends ObjectBase
 {
-    /**
-     * @var string
-     */
-    protected $src;
+    protected string $src;
 
-    /**
-     * @var string[]
-     */
-    protected $poster;
+    protected array $poster;
 
-    /**
-     * @var MediaSource[]
-     */
-    protected $sources;
+    protected array $sources;
 
-    /**
-     * @var Track[]
-     */
-    protected $tracks;
+    protected array $tracks;
 
     public function applyJSON(array $json): void
     {
@@ -42,81 +27,50 @@ class Media extends ObjectBase
         $this->applyProperty($json, 'tracks', null, Track::class, true);
     }
 
-    /**
-     * @return string
-     */
-    public function getSrc()
+    public function getSrc(): string
     {
         return $this->src;
     }
 
-    /**
-     * @param string $src
-     *
-     * @return Media
-     */
-    public function setSrc($src)
+    public function setSrc(string $src): self
     {
         $this->src = $src;
         $this->fieldChanged('name');
         return $this;
     }
 
-    /**
-     * @return array
-     */
-    public function getPoster()
+    public function getPoster(): array
     {
         return $this->poster;
     }
 
-    /**
-     * @param array $poster
-     * @return Media
-     */
-    public function setPoster(array $poster)
+    public function setPoster(array $poster): self
     {
         $this->poster = $poster;
         $this->fieldChanged('poster');
         return $this;
     }
 
-    /**
-     * @return MediaSource[]
-     */
-    public function getSources()
+    public function getSources(): array
     {
         return $this->sources;
     }
 
-    /**
-     * @param MediaSource[] $sources
-     * @return Media
-     */
-    public function setSources(array $sources)
+    public function setSources(array $sources): self
     {
         $this->sources = $sources;
         $this->fieldChanged('sources');
         return $this;
     }
 
-    /**
-     * @return Track[]
-     */
-    public function getTracks()
+    public function getTracks(): array
     {
         return $this->tracks;
     }
 
-    /**
-     * @param Track[] $tracks
-     *
-     * @return Media
-     */
-    public function setTracks($tracks)
+    public function setTracks(array $tracks): self
     {
         $this->tracks = $tracks;
         return $this;
     }
-
 }

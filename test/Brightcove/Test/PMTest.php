@@ -31,6 +31,9 @@ class PMTest extends TestBase
         return $this->pm->getPlayer($result->getId());
     }
 
+    /**
+     * @throws APIException
+     */
     #[Depends('testPlayerCreation')]
     public function testCheckPlayer(Player $player): ?Player
     {
@@ -67,6 +70,9 @@ class PMTest extends TestBase
         return $player;
     }
 
+    /**
+     * @throws APIException
+     */
     #[Depends('testUpdatePlayer')]
     public function testUpdateAndPublishConfiguration(Player $player): ObjectInterface|Player
     {
@@ -93,6 +99,9 @@ class PMTest extends TestBase
         return $player;
     }
 
+    /**
+     * @throws APIException
+     */
     #[Depends('testUpdateAndPublishConfiguration')]
     public function testDeletePlayer(Player $player): void
     {

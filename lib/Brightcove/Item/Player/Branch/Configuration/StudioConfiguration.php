@@ -5,17 +5,11 @@ namespace Brightcove\Item\Player\Branch\Configuration;
 use Brightcove\Item\ObjectBase;
 
 /**
- * Class StudioConfiguration
- *
- * @package Brightcove\Item\Player\Branch\Configuration
  * @api
  */
 class StudioConfiguration extends ObjectBase
 {
-    /**
-     * @var StudioConfigurationPlayer
-     */
-    protected $player;
+    protected StudioConfigurationPlayer $player;
 
     public function applyJSON(array $json): void
     {
@@ -23,19 +17,12 @@ class StudioConfiguration extends ObjectBase
         $this->applyProperty($json, 'player', null, StudioConfigurationPlayer::class);
     }
 
-    /**
-     * @return StudioConfigurationPlayer
-     */
-    public function getPlayer()
+    public function getPlayer(): StudioConfigurationPlayer
     {
         return $this->player;
     }
 
-    /**
-     * @param StudioConfigurationPlayer $player
-     * @return StudioConfiguration
-     */
-    public function setPlayer(StudioConfigurationPlayer $player)
+    public function setPlayer(StudioConfigurationPlayer $player): self
     {
         $this->player = $player;
         $this->fieldChanged('player');

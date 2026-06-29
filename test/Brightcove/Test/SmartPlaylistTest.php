@@ -15,7 +15,7 @@ class SmartPlaylistTest extends TestBase
      * Creates an array[10] filling it up with random video objects
      * and sets the Tag field with a random string.
      *
-     * @throws RandomException
+     * @throws RandomException|APIException
      */
     public function testCreateVideos(): array
     {

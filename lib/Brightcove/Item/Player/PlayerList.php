@@ -5,22 +5,13 @@ namespace Brightcove\Item\Player;
 use Brightcove\Item\ObjectBase;
 
 /**
- * Class PlayerList
- *
- * @package Brightcove\Item\Player
  * @api
  */
 class PlayerList extends ObjectBase
 {
-    /**
-     * @var array
-     */
-    protected $items;
+    protected array $items;
 
-    /**
-     * @var int
-     */
-    protected $item_count;
+    protected int $item_count;
 
     public function applyJSON(array $json): void
     {
@@ -30,38 +21,24 @@ class PlayerList extends ObjectBase
         $this->applyProperty($json, 'item_count');
     }
 
-    /**
-     * @return Player[]
-     */
-    public function getItems()
+    public function getItems(): array
     {
         return $this->items;
     }
 
-    /**
-     * @param Player[] $items
-     * @return PlayerList
-     */
-    public function setItems(array $items)
+    public function setItems(array $items): self
     {
         $this->items = $items;
         $this->fieldChanged('items');
         return $this;
     }
 
-    /**
-     * @return int
-     */
-    public function getItemCount()
+    public function getItemCount(): int
     {
         return $this->item_count;
     }
 
-    /**
-     * @param int $item_count
-     * @return PlayerList
-     */
-    public function setItemCount($item_count)
+    public function setItemCount(int $item_count): self
     {
         $this->item_count = $item_count;
         $this->fieldChanged('item_count');

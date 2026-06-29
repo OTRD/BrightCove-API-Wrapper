@@ -64,7 +64,7 @@ class PlaylistTest extends TestBase
         $videos = $input[1];
 
         $videoIds = array_map(
-            static fn(Video $video): string => $video->getId(),
+            static fn (Video $video): string => $video->getId(),
             $videos
         );
 

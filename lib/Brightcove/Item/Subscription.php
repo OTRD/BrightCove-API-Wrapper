@@ -5,22 +5,13 @@ namespace Brightcove\Item;
 use Brightcove\API\Request\SubscriptionRequest;
 
 /**
- * Class Subscription
- *
- * @package Brightcove\Item
  * @api
  */
 class Subscription extends SubscriptionRequest
 {
-    /**
-     * @var string
-     */
-    protected $id;
+    protected string $id;
 
-    /**
-     * @var string
-     */
-    protected $service_account;
+    protected string $service_account;
 
     public function applyJSON(array $json): void
     {
@@ -29,38 +20,24 @@ class Subscription extends SubscriptionRequest
         $this->applyProperty($json, 'service_account');
     }
 
-    /**
-     * @return string
-     */
-    public function getId()
+    public function getId(): string
     {
         return $this->id;
     }
 
-    /**
-     * @param string $id
-     * @return Subscription
-     */
-    public function setId($id)
+    public function setId(string $id): self
     {
         $this->id = $id;
         $this->fieldChanged('id');
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getServiceAccount()
+    public function getServiceAccount(): string
     {
         return $this->service_account;
     }
 
-    /**
-     * @param string $service_account
-     * @return Subscription
-     */
-    public function setServiceAccount($service_account)
+    public function setServiceAccount(string $service_account): self
     {
         $this->service_account = $service_account;
         $this->fieldChanged('service_account');

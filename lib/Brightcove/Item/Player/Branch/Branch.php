@@ -6,37 +6,19 @@ use Brightcove\Item\ObjectBase;
 use Brightcove\Item\Player\Branch\Configuration\Configuration;
 
 /**
- * Class Branch
- *
- * @package Brightcove\Item\Player\Branch
  * @api
  */
 class Branch extends ObjectBase
 {
-    /**
-     * @var Configuration
-     */
-    protected $configuration;
+    protected Configuration $configuration;
 
-    /**
-     * @var string
-     */
-    protected $updated_at;
+    protected string $updated_at;
 
-    /**
-     * @var string
-     */
-    protected $template_updated_at;
+    protected string $template_updated_at;
 
-    /**
-     * @var string
-     */
-    protected $master_url;
+    protected string $master_url;
 
-    /**
-     * @var string
-     */
-    protected $preview_url;
+    protected string $preview_url;
 
     public function applyJSON(array $json): void
     {
@@ -49,98 +31,60 @@ class Branch extends ObjectBase
         $this->applyProperty($json, 'preview_url');
     }
 
-    /**
-     * @return Configuration
-     */
-    public function getConfiguration()
+    public function getConfiguration(): Configuration
     {
         return $this->configuration;
     }
 
-    /**
-     * @param Configuration $configuration
-     * @return Branch
-     */
-    public function setConfiguration(Configuration $configuration)
+    public function setConfiguration(Configuration $configuration): self
     {
         $this->configuration = $configuration;
         $this->fieldChanged('configuration');
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getUpdatedAt()
+    public function getUpdatedAt(): string
     {
         return $this->updated_at;
     }
 
-    /**
-     * @param string $updated_at
-     * @return Branch
-     */
-    public function setUpdatedAt($updated_at)
+    public function setUpdatedAt(string $updated_at): self
     {
         $this->updated_at = $updated_at;
         $this->fieldChanged('updated_at');
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getMasterUrl()
+    public function getMasterUrl(): string
     {
         return $this->master_url;
     }
 
-    /**
-     * @param string $master_url
-     *
-     * @return Branch
-     */
-    public function setMasterUrl($master_url)
+    public function setMasterUrl(string $master_url): self
     {
         $this->master_url = $master_url;
         $this->fieldChanged('master_url');
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getTemplateUpdatedAt()
+    public function getTemplateUpdatedAt(): string
     {
         return $this->template_updated_at;
     }
 
-    /**
-     * @param string $template_updated_at
-     *
-     * @return Branch
-     */
-    public function setTemplateUpdatedAt($template_updated_at)
+    public function setTemplateUpdatedAt(string $template_updated_at): self
     {
         $this->template_updated_at = $template_updated_at;
         $this->fieldChanged('template_updated_at');
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getPreviewUrl()
+    public function getPreviewUrl(): string
     {
         return $this->preview_url;
     }
 
-    /**
-     * @param string $preview_url
-     *
-     * @return Branch
-     */
-    public function setPreviewUrl($preview_url)
+    public function setPreviewUrl(string $preview_url): self
     {
         $this->preview_url = $preview_url;
         $this->fieldChanged('preview_url');

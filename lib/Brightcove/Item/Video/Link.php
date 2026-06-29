@@ -5,12 +5,16 @@ namespace Brightcove\Item\Video;
 use Brightcove\Item\ObjectBase;
 
 /**
- * Creates a link object which has two separeted string field.
+ * Creates a link object which has two separated string field.
  *
  * @api
  */
 class Link extends ObjectBase
 {
+    protected string $text;
+
+    protected string $url;
+
     public function applyJSON(array $json): void
     {
         parent::applyJSON($json);
@@ -18,52 +22,24 @@ class Link extends ObjectBase
         $this->applyProperty($json, 'text');
     }
 
-    /**
-     * Display text for the link
-     *
-     * @var string
-     */
-    protected $text;
-
-    /**
-     * URL for the link
-     *
-     * @var string
-     */
-    protected $url;
-
-    /**
-     * @return string
-     */
-    public function getText()
+    public function getText(): string
     {
         return $this->text;
     }
 
-    /**
-     * @param string $text
-     * @return $this
-     */
-    public function setText($text)
+    public function setText(string $text): self
     {
         $this->text = $text;
         $this->fieldChanged('text');
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getUrl()
+    public function getUrl(): string
     {
         return $this->url;
     }
 
-    /**
-     * @param string $url
-     * @return $this
-     */
-    public function setUrl($url)
+    public function setUrl(string $url): self
     {
         $this->url = $url;
         $this->fieldChanged('url');

@@ -5,57 +5,27 @@ namespace Brightcove\Item\Video;
 use Brightcove\Item\ObjectBase;
 
 /**
- * Class TextTrack
- *
- * @package Brightcove\Item\Video
  * @api
  */
 class TextTrack extends ObjectBase
 {
-    /**
-     * @var string
-     */
-    protected $id;
+    protected string $id;
 
-    /**
-     * @var string
-     */
-    protected $src;
+    protected string $src;
 
-    /**
-     * @var string
-     */
-    protected $srclang;
+    protected string $srclang;
 
-    /**
-     * @var string
-     */
-    protected $label;
+    protected string $label;
 
-    /**
-     * @var string
-     */
-    protected $kind;
+    protected string $kind;
 
-    /**
-     * @var string
-     */
-    protected $mime_type;
+    protected string $mime_type;
 
-    /**
-     * @var string
-     */
-    protected $asset_id;
+    protected string $asset_id;
 
-    /**
-     * @var TextTrackSource[]
-     */
-    protected $sources;
+    protected array $sources;
 
-    /**
-     * @var boolean
-     */
-    protected $default;
+    protected bool $default;
 
     public function applyJSON(array $json): void
     {
@@ -71,171 +41,108 @@ class TextTrack extends ObjectBase
         $this->applyProperty($json, 'default');
     }
 
-    /**
-     * @return string
-     */
-    public function getId()
+    public function getId(): string
     {
         return $this->id;
     }
 
-    /**
-     * @param string $id
-     * @return TextTrack
-     */
-    public function setId($id)
+    public function setId(string $id): self
     {
         $this->id = $id;
         $this->fieldChanged('id');
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getSrc()
+    public function getSrc(): string
     {
         return $this->src;
     }
 
-    /**
-     * @param string $src
-     * @return TextTrack
-     */
-    public function setSrc($src)
+    public function setSrc(string $src): self
     {
         $this->src = $src;
         $this->fieldChanged('src');
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getSrclang()
+    public function getSrclang(): string
     {
         return $this->srclang;
     }
 
-    /**
-     * @param string $srclang
-     * @return TextTrack
-     */
-    public function setSrclang($srclang)
+    public function setSrclang(string $srclang): self
     {
         $this->srclang = $srclang;
         $this->fieldChanged('srclang');
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getLabel()
+    public function getLabel(): string
     {
         return $this->label;
     }
 
-    /**
-     * @param string $label
-     * @return TextTrack
-     */
-    public function setLabel($label)
+    public function setLabel(string $label): self
     {
         $this->label = $label;
         $this->fieldChanged('label');
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getKind()
+    public function getKind(): string
     {
         return $this->kind;
     }
 
-    /**
-     * @param string $kind
-     * @return TextTrack
-     */
-    public function setKind($kind)
+    public function setKind(string $kind): self
     {
         $this->kind = $kind;
         $this->fieldChanged('kind');
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getMimeType()
+    public function getMimeType(): string
     {
         return $this->mime_type;
     }
 
-    /**
-     * @param string $mime_type
-     * @return TextTrack
-     */
-    public function setMimeType($mime_type)
+    public function setMimeType(string $mime_type): self
     {
         $this->mime_type = $mime_type;
         $this->fieldChanged('mime_type');
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getAssetId()
+    public function getAssetId(): string
     {
         return $this->asset_id;
     }
 
-    /**
-     * @param string $asset_id
-     * @return TextTrack
-     */
-    public function setAssetId($asset_id)
+    public function setAssetId(string $asset_id): self
     {
         $this->asset_id = $asset_id;
         $this->fieldChanged('asset_id');
         return $this;
     }
 
-    /**
-     * @return TextTrackSource[]
-     */
-    public function getSources()
+    public function getSources(): array
     {
         return $this->sources;
     }
 
-    /**
-     * @param TextTrackSource[] $sources
-     * @return TextTrack
-     */
-    public function setSources(array $sources)
+    public function setSources(array $sources): self
     {
         $this->sources = $sources;
         $this->fieldChanged('sources');
         return $this;
     }
 
-    /**
-     * @return boolean
-     */
-    public function isDefault()
+    public function isDefault(): bool
     {
         return $this->default;
     }
 
-    /**
-     * @param boolean $default
-     * @return TextTrack
-     */
-    public function setDefault($default)
+    public function setDefault(bool $default): self
     {
         $this->default = $default;
         $this->fieldChanged('default');

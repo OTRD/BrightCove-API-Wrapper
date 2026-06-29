@@ -5,27 +5,15 @@ namespace Brightcove\Item\Player\Branch\Configuration;
 use Brightcove\Item\ObjectBase;
 
 /**
- * Class Track
- *
- * @package Brightcove\Item\Player\Branch\Configuration
  * @api
  */
 class Track extends ObjectBase
 {
-    /**
-     * @var string
-     */
-    protected $label;
+    protected string $label;
 
-    /**
-     * @var string
-     */
-    protected $src;
+    protected string $src;
 
-    /**
-     * @var string
-     */
-    protected $srclang;
+    protected string $srcLang;
 
     public function applyJSON(array $json): void
     {
@@ -36,61 +24,36 @@ class Track extends ObjectBase
         $this->applyProperty($json, 'srclang');
     }
 
-    /**
-     * @return string
-     */
-    public function getLabel()
+    public function getLabel(): string
     {
         return $this->label;
     }
 
-    /**
-     * @param string $label
-     *
-     * @return Track
-     */
-    public function setLabel($label)
+    public function setLabel(string $label): self
     {
         $this->label = $label;
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getSrc()
+    public function getSrc(): string
     {
         return $this->src;
     }
 
-    /**
-     * @param string $src
-     *
-     * @return Track
-     */
-    public function setSrc($src)
+    public function setSrc(string $src): self
     {
         $this->src = $src;
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getSrclang()
+    public function getSrcLang(): string
     {
-        return $this->srclang;
+        return $this->srcLang;
     }
 
-    /**
-     * @param string $srclang
-     *
-     * @return Track
-     */
-    public function setSrclang($srclang)
+    public function setSrcLang(string $srcLang): self
     {
-        $this->srclang = $srclang;
+        $this->srcLang = $srcLang;
         return $this;
     }
-
 }

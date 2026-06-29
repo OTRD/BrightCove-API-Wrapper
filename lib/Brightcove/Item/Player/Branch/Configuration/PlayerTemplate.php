@@ -5,22 +5,13 @@ namespace Brightcove\Item\Player\Branch\Configuration;
 use Brightcove\Item\ObjectBase;
 
 /**
- * Class PlayerTemplate
- *
- * @package Brightcove\Item\Player\Branch\Configuration
  * @api
  */
 class PlayerTemplate extends ObjectBase
 {
-    /**
-     * @var string
-     */
-    protected $name;
+    protected string $name;
 
-    /**
-     * @var string
-     */
-    protected $version;
+    protected string $version;
 
     public function applyJSON(array $json): void
     {
@@ -30,38 +21,24 @@ class PlayerTemplate extends ObjectBase
         $this->applyProperty($json, 'version');
     }
 
-    /**
-     * @return string
-     */
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }
 
-    /**
-     * @param string $name
-     * @return PlayerTemplate
-     */
-    public function setName($name)
+    public function setName(string $name): self
     {
         $this->name = $name;
         $this->fieldChanged('name');
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getVersion()
+    public function getVersion(): string
     {
         return $this->version;
     }
 
-    /**
-     * @param string $version
-     * @return PlayerTemplate
-     */
-    public function setVersion($version)
+    public function setVersion(string $version): self
     {
         $this->version = $version;
         $this->fieldChanged('version');

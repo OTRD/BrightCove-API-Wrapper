@@ -25,57 +25,36 @@ class Image extends ObjectBase
         $this->applyProperty($json, 'sources');
     }
 
-    /**
-     * @return string
-     */
-    public function getId()
+    public function getId(): string
     {
         return $this->id;
     }
 
-    /**
-     * @param string $id
-     * @return $this
-     */
-    public function setId($id)
+    public function setId(string $id): self
     {
         $this->id = $id;
         $this->fieldChanged('id');
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getSrc()
+    public function getSrc(): string
     {
         return $this->src;
     }
 
-    /**
-     * @param string $src
-     * @return $this
-     */
-    public function setSrc($src)
+    public function setSrc(string $src): self
     {
         $this->src = $src;
         $this->fieldChanged('src');
         return $this;
     }
 
-    /**
-     * @return array
-     */
-    public function getSources()
+    public function getSources(): array
     {
         return $this->sources;
     }
 
-    /**
-     * @param array $sources
-     * @return $this
-     */
-    public function setSources(array $sources)
+    public function setSources(array $sources): self
     {
         $this->sources = $sources;
         $this->fieldChanged('sources');

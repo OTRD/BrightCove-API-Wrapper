@@ -3,9 +3,6 @@
 namespace Brightcove;
 
 /**
- * Class Constants
- *
- * @package Brightcove
  * @api
  */
 class Constants

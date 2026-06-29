@@ -5,27 +5,15 @@ namespace Brightcove\Item\Player\Branch\Configuration;
 use Brightcove\Item\ObjectBase;
 
 /**
- * Class CSS
- *
- * @package Brightcove\Item\Player\Branch\Configuration
  * @api
  */
 class CSS extends ObjectBase
 {
-    /**
-     * @var string
-     */
-    protected $controlBarColor;
+    protected string $controlBarColor;
 
-    /**
-     * @var string
-     */
-    protected $controlColor;
+    protected string $controlColor;
 
-    /**
-     * @var string
-     */
-    protected $progressColor;
+    protected string $progressColor;
 
     public function applyJSON(array $json): void
     {
@@ -36,57 +24,36 @@ class CSS extends ObjectBase
         $this->applyProperty($json, 'progressColor');
     }
 
-    /**
-     * @return string
-     */
-    public function getControlBarColor()
+    public function getControlBarColor(): string
     {
         return $this->controlBarColor;
     }
 
-    /**
-     * @param string $controlBarColor
-     * @return CSS
-     */
-    public function setControlBarColor($controlBarColor)
+    public function setControlBarColor(string $controlBarColor): self
     {
         $this->controlBarColor = $controlBarColor;
         $this->fieldChanged('controlBarColor');
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getControlColor()
+    public function getControlColor(): string
     {
         return $this->controlColor;
     }
 
-    /**
-     * @param string $controlColor
-     * @return CSS
-     */
-    public function setControlColor($controlColor)
+    public function setControlColor(string $controlColor): self
     {
         $this->controlColor = $controlColor;
         $this->fieldChanged('controlColor');
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getProgressColor()
+    public function getProgressColor(): string
     {
         return $this->progressColor;
     }
 
-    /**
-     * @param string $progressColor
-     * @return CSS
-     */
-    public function setProgressColor($progressColor)
+    public function setProgressColor(string $progressColor): self
     {
         $this->progressColor = $progressColor;
         $this->fieldChanged('progressColor');

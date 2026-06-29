@@ -5,39 +5,22 @@ namespace Brightcove\API\Request;
 use Brightcove\Item\ObjectBase;
 
 /**
- * Class IngestTextTrack
- *
- * @package Brightcove\API\Request
  * @api
  */
 class IngestTextTrack extends ObjectBase
 {
-    /**
-     * @var string
-     */
-    protected $url;
+    protected string $url;
 
-    /**
-     * @var string
-     */
-    protected $srclang;
+    protected string $srcLang;
 
-    /**
-     * @var string
-     */
-    protected $label;
+    protected string $label;
 
     /**
      * allowed values: captions | subtitles | descriptions | chapters | metadata
-     *
-     * @var string
      */
-    protected $kind;
+    protected string $kind;
 
-    /**
-     * @var boolean
-     */
-    protected $default;
+    protected bool $default;
 
     public function applyJSON(array $json): void
     {
@@ -49,99 +32,63 @@ class IngestTextTrack extends ObjectBase
         $this->applyProperty($json, 'default');
     }
 
-    /**
-     * @return string
-     */
-    public function getUrl()
+    public function getUrl(): string
     {
         return $this->url;
     }
 
-    /**
-     * @param string $url
-     * @return IngestTextTrack
-     */
-    public function setUrl($url)
+    public function setUrl(string $url): self
     {
         $this->url = $url;
         $this->fieldChanged('url');
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getSrclang()
+    public function getSrcLang(): string
     {
-        return $this->srclang;
+        return $this->srcLang;
     }
 
-    /**
-     * @param string $srclang
-     * @return IngestTextTrack
-     */
-    public function setSrclang($srclang)
+    public function setSrcLang(string $srcLang): self
     {
-        $this->srclang = $srclang;
+        $this->srcLang = $srcLang;
         $this->fieldChanged('srclang');
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getLabel()
+    public function getLabel(): string
     {
         return $this->label;
     }
 
-    /**
-     * @param string $label
-     * @return IngestTextTrack
-     */
-    public function setLabel($label)
+    public function setLabel(string $label): self
     {
         $this->label = $label;
         $this->fieldChanged('label');
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getKind()
+    public function getKind(): string
     {
         return $this->kind;
     }
 
-    /**
-     * @param string $kind
-     * @return IngestTextTrack
-     */
-    public function setKind($kind)
+    public function setKind(string $kind): self
     {
         $this->kind = $kind;
         $this->fieldChanged('kind');
         return $this;
     }
 
-    /**
-     * @return boolean
-     */
-    public function isDefault()
+    public function isDefault(): bool
     {
         return $this->default;
     }
 
-    /**
-     * @param boolean $default
-     * @return IngestTextTrack
-     */
-    public function setDefault($default)
+    public function setDefault(bool $default): self
     {
         $this->default = $default;
         $this->fieldChanged('default');
         return $this;
     }
-
 }

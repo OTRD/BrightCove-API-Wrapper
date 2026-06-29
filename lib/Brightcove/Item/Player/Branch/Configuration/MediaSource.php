@@ -5,22 +5,13 @@ namespace Brightcove\Item\Player\Branch\Configuration;
 use Brightcove\Item\ObjectBase;
 
 /**
- * Class MediaSource
- *
- * @package Brightcove\Item\Player\Branch\Configuration
  * @api
  */
 class MediaSource extends ObjectBase
 {
-    /**
-     * @var string
-     */
-    protected $type;
+    protected string $type;
 
-    /**
-     * @var string
-     */
-    protected $src;
+    protected string $src;
 
     public function applyJSON(array $json): void
     {
@@ -30,38 +21,24 @@ class MediaSource extends ObjectBase
         $this->applyProperty($json, 'src');
     }
 
-    /**
-     * @return string
-     */
-    public function getType()
+    public function getType(): string
     {
         return $this->type;
     }
 
-    /**
-     * @param string $type
-     * @return MediaSource
-     */
-    public function setType($type)
+    public function setType(string $type): self
     {
         $this->type = $type;
         $this->fieldChanged('type');
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getSrc()
+    public function getSrc(): string
     {
         return $this->src;
     }
 
-    /**
-     * @param string $src
-     * @return MediaSource
-     */
-    public function setSrc($src)
+    public function setSrc(string $src): self
     {
         $this->src = $src;
         $this->fieldChanged('src');

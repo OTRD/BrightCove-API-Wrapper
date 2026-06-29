@@ -5,45 +5,27 @@ namespace Brightcove\Item\Player;
 use Brightcove\Item\Player\Branch\Configuration\Configuration;
 
 /**
- * Class CreateData
- *
- * @package Brightcove\Item\Player
  * @api
  */
 class CreateData extends UpdateData
 {
-    /**
-     * @var Configuration
-     */
-    protected $configuration;
+    protected Configuration $configuration;
 
-    /**
-     * {@inheritdoc}
-     */
     public function applyJSON(array $json): void
     {
         parent::applyJSON($json);
         $this->applyProperty($json, 'configuration', null, Configuration::class);
     }
 
-    /**
-     * @return \Brightcove\Item\Player\Branch\Configuration\Configuration
-     */
-    public function getConfiguration()
+    public function getConfiguration(): Configuration
     {
         return $this->configuration;
     }
 
-    /**
-     * @param \Brightcove\Item\Player\Branch\Configuration\Configuration $configuration
-     *
-     * @return CreateData
-     */
-    public function setConfiguration(Configuration $configuration)
+    public function setConfiguration(Configuration $configuration): self
     {
         $this->configuration = $configuration;
         $this->fieldChanged('configuration');
         return $this;
     }
-
 }

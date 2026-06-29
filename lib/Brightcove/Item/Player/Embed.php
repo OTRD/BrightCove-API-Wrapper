@@ -7,62 +7,29 @@ use Brightcove\Item\Player\Branch\BranchList;
 use Brightcove\Item\Player\Embed\PublishRequest;
 
 /**
- * Class Embed
- *
- * @package Brightcove\Item\Player
  * @api
  */
 class Embed extends ObjectBase
 {
-    /**
-     * @var BranchList
-     */
-    protected $branches;
+    protected BranchList $branches;
 
-    /**
-     * @var string
-     */
-    protected $embed_code;
+    protected string $embed_code;
 
-    /**
-     * @var string
-     */
-    protected $embed_in_page;
+    protected string $embed_in_page;
 
-    /**
-     * @var string
-     */
-    protected $id;
+    protected string $id;
 
-    /**
-     * @var string
-     */
-    protected $name;
+    protected string $name;
 
-    /**
-     * @var string
-     */
-    protected $preview_embed_code;
+    protected string $preview_embed_code;
 
-    /**
-     * @var PublishRequest
-     */
-    protected $publish_request;
+    protected PublishRequest $publish_request;
 
-    /**
-     * @var string
-     */
-    protected $preview_url;
+    protected string $preview_url;
 
-    /**
-     * @var string
-     */
-    protected $repository_url;
+    protected string $repository_url;
 
-    /**
-     * @var string
-     */
-    protected $url;
+    protected string $url;
 
     public function applyJSON(array $json): void
     {
@@ -80,194 +47,113 @@ class Embed extends ObjectBase
         $this->applyProperty($json, 'url');
     }
 
-    /**
-     * @return \Brightcove\Item\Player\Branch\BranchList
-     */
-    public function getBranches()
+    public function getBranches(): BranchList
     {
         return $this->branches;
     }
 
-    /**
-     * @param \Brightcove\Item\Player\Branch\BranchList $branches
-     *
-     * @return Embed
-     */
-    public function setBranches($branches)
+    public function setBranches(BranchList $branches): self
     {
         $this->branches = $branches;
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getEmbedCode()
+    public function getEmbedCode(): string
     {
         return $this->embed_code;
     }
 
-    /**
-     * @param string $embed_code
-     *
-     * @return Embed
-     */
-    public function setEmbedCode($embed_code)
+    public function setEmbedCode(string $embed_code): self
     {
         $this->embed_code = $embed_code;
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getEmbedInPage()
+    public function getEmbedInPage(): string
     {
         return $this->embed_in_page;
     }
 
-    /**
-     * @param string $embed_in_page
-     *
-     * @return Embed
-     */
-    public function setEmbedInPage($embed_in_page)
+    public function setEmbedInPage(string $embed_in_page): self
     {
         $this->embed_in_page = $embed_in_page;
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getId()
+    public function getId(): string
     {
         return $this->id;
     }
 
-    /**
-     * @param string $id
-     *
-     * @return Embed
-     */
-    public function setId($id)
+    public function setId(string $id): self
     {
         $this->id = $id;
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }
 
-    /**
-     * @param string $name
-     *
-     * @return Embed
-     */
-    public function setName($name)
+    public function setName(string $name): self
     {
         $this->name = $name;
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getPreviewEmbedCode()
+    public function getPreviewEmbedCode(): string
     {
         return $this->preview_embed_code;
     }
 
-    /**
-     * @param string $preview_embed_code
-     *
-     * @return Embed
-     */
-    public function setPreviewEmbedCode($preview_embed_code)
+    public function setPreviewEmbedCode(string $preview_embed_code): self
     {
         $this->preview_embed_code = $preview_embed_code;
         return $this;
     }
 
-    /**
-     * @return \Brightcove\Item\Player\Embed\PublishRequest
-     */
-    public function getPublishRequest()
+    public function getPublishRequest(): PublishRequest
     {
         return $this->publish_request;
     }
 
-    /**
-     * @param \Brightcove\Item\Player\Embed\PublishRequest $publish_request
-     *
-     * @return Embed
-     */
-    public function setPublishRequest($publish_request)
+    public function setPublishRequest(PublishRequest $publish_request): self
     {
         $this->publish_request = $publish_request;
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getPreviewUrl()
+    public function getPreviewUrl(): string
     {
         return $this->preview_url;
     }
 
-    /**
-     * @param string $preview_url
-     *
-     * @return Embed
-     */
-    public function setPreviewUrl($preview_url)
+    public function setPreviewUrl(string $preview_url): self
     {
         $this->preview_url = $preview_url;
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getRepositoryUrl()
+    public function getRepositoryUrl(): string
     {
         return $this->repository_url;
     }
 
-    /**
-     * @param string $repository_url
-     *
-     * @return Embed
-     */
-    public function setRepositoryUrl($repository_url)
+    public function setRepositoryUrl(string $repository_url): self
     {
         $this->repository_url = $repository_url;
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getUrl()
+    public function getUrl(): string
     {
         return $this->url;
     }
 
-    /**
-     * @param string $url
-     *
-     * @return Embed
-     */
-    public function setUrl($url)
+    public function setUrl(string $url): self
     {
         $this->url = $url;
         return $this;
     }
-
 }

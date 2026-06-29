@@ -5,22 +5,13 @@ namespace Brightcove\Item\Player\Branch;
 use Brightcove\Item\ObjectBase;
 
 /**
- * Class BranchList
- *
- * @package Brightcove\Item\Player\Branch
  * @api
  */
 class BranchList extends ObjectBase
 {
-    /**
-     * @var Branch
-     */
-    protected $master;
+    protected Branch $master;
 
-    /**
-     * @var Branch
-     */
-    protected $preview;
+    protected Branch $preview;
 
     public function applyJSON(array $json): void
     {
@@ -30,38 +21,24 @@ class BranchList extends ObjectBase
         $this->applyProperty($json, 'preview', null, Branch::class);
     }
 
-    /**
-     * @return Branch
-     */
-    public function getMaster()
+    public function getMaster(): Branch
     {
         return $this->master;
     }
 
-    /**
-     * @param Branch $master
-     * @return BranchList
-     */
-    public function setMaster(Branch $master)
+    public function setMaster(Branch $master): self
     {
         $this->master = $master;
         $this->fieldChanged('master');
         return $this;
     }
 
-    /**
-     * @return Branch
-     */
-    public function getPreview()
+    public function getPreview(): Branch
     {
         return $this->preview;
     }
 
-    /**
-     * @param Branch $preview
-     * @return BranchList
-     */
-    public function setPreview(Branch $preview)
+    public function setPreview(Branch $preview): self
     {
         $this->preview = $preview;
         $this->fieldChanged('preview');

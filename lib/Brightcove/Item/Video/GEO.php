@@ -27,57 +27,36 @@ class GEO extends ObjectBase
         $this->applyProperty($json, 'restricted');
     }
 
-    /**
-     * @return array
-     */
-    public function getCountries()
+    public function getCountries(): array
     {
         return $this->countries;
     }
 
-    /**
-     * @param array $countries
-     * @return $this
-     */
-    public function setCountries($countries)
+    public function setCountries(array $countries): self
     {
         $this->countries = $countries;
         $this->fieldChanged('countries');
         return $this;
     }
 
-    /**
-     * @return boolean
-     */
-    public function isExcludeCountries()
+    public function isExcludeCountries(): bool
     {
         return $this->exclude_countries;
     }
 
-    /**
-     * @param boolean $exclude_countries
-     * @return $this
-     */
-    public function setExcludeCountries($exclude_countries)
+    public function setExcludeCountries(bool $exclude_countries): self
     {
         $this->exclude_countries = $exclude_countries;
         $this->fieldChanged('exclude_countries');
         return $this;
     }
 
-    /**
-     * @return boolean
-     */
-    public function isRestricted()
+    public function isRestricted(): bool
     {
         return $this->restricted;
     }
 
-    /**
-     * @param boolean $restricted
-     * @return $this
-     */
-    public function setRestricted($restricted)
+    public function setRestricted(bool $restricted): self
     {
         $this->restricted = $restricted;
         $this->fieldChanged('restricted');

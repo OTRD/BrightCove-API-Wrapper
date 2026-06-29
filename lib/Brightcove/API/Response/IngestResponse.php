@@ -22,7 +22,7 @@ class IngestResponse extends ObjectBase
         return $this->id;
     }
 
-    public function setId(string $id): static
+    public function setId(string $id): self
     {
         $this->id = $id;
         $this->fieldChanged('id');

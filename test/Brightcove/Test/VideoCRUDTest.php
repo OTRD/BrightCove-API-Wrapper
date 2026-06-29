@@ -27,43 +27,44 @@ class VideoCRUDTest extends TestBase
 
     /**
      * TODO: This test is not working. Need to fix it when we figure out what profile to use for ingestion.
+     *
      * @throws APIException
      *
-    #[Depends('testVideoObjectCreation')]
-    public function testVideoIngestion(string $videoId): string
-    {
-        $request = IngestRequest::createRequest(
-            'http://download.blender.org/peach/bigbuckbunny_movies/big_buck_bunny_480p_surround-fix.avi',
-            'high-bandwidth-devices'
-        );
-
-        if (!empty($this->callbackAddrRemote)) {
-            $request->setCallbacks([$this->callbackAddrRemote]);
-        }
-
-        $ingest = $this->di->createIngest($videoId, $request);
-        $this->assertNotEmpty($ingest->getId());
-
-        return $videoId;
-    }
-
-    #[Depends('testVideoIngestion')]
-    public function testVideoIngestionCallback(string $videoId): string
-    {
-        if (empty($this->callbackHost)) {
-            $this->markTestSkipped();
-        }
-
-        $json = self::waitForHTTPCallback($this->callbackHost);
-        $this->assertNotEmpty($json, 'Callback result');
-
-        $result = json_decode($json, true);
-        $this->assertNotEmpty($result, 'The result is correct JSON');
-        $this->assertEquals('SUCCESS', $result['status']);
-
-        return $videoId;
-    }
-    */
+     * #[Depends('testVideoObjectCreation')]
+     * public function testVideoIngestion(string $videoId): string
+     * {
+     * $request = IngestRequest::createRequest(
+     * 'http://download.blender.org/peach/bigbuckbunny_movies/big_buck_bunny_480p_surround-fix.avi',
+     * 'high-bandwidth-devices'
+     * );
+     *
+     * if (!empty($this->callbackAddrRemote)) {
+     * $request->setCallbacks([$this->callbackAddrRemote]);
+     * }
+     *
+     * $ingest = $this->di->createIngest($videoId, $request);
+     * $this->assertNotEmpty($ingest->getId());
+     *
+     * return $videoId;
+     * }
+     *
+     * #[Depends('testVideoIngestion')]
+     * public function testVideoIngestionCallback(string $videoId): string
+     * {
+     * if (empty($this->callbackHost)) {
+     * $this->markTestSkipped();
+     * }
+     *
+     * $json = self::waitForHTTPCallback($this->callbackHost);
+     * $this->assertNotEmpty($json, 'Callback result');
+     *
+     * $result = json_decode($json, true);
+     * $this->assertNotEmpty($result, 'The result is correct JSON');
+     * $this->assertEquals('SUCCESS', $result['status']);
+     *
+     * return $videoId;
+     * }
+     */
 
     /**
      * @throws APIException

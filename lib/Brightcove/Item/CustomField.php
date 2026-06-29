@@ -3,42 +3,21 @@
 namespace Brightcove\Item;
 
 /**
- * Class CustomField
- *
- * @package Brightcove\Item
  * @api
  */
 class CustomField extends ObjectBase
 {
-    /**
-     * @var string
-     */
-    protected $id;
+    protected string $id;
 
-    /**
-     * @var string
-     */
-    protected $display_name;
+    protected string $display_name;
 
-    /**
-     * @var string
-     */
-    protected $description;
+    protected string $description;
 
-    /**
-     * @var bool
-     */
-    protected $required;
+    protected bool $required;
 
-    /**
-     * @var string
-     */
-    protected $type;
+    protected string $type;
 
-    /**
-     * @var array
-     */
-    protected $enum_values;
+    protected array $enum_values;
 
     public function applyJSON(array $json): void
     {
@@ -51,118 +30,75 @@ class CustomField extends ObjectBase
         $this->applyProperty($json, 'enum_values');
     }
 
-    /**
-     * @return string
-     */
-    public function getId()
+    public function getId(): string
     {
         return $this->id;
     }
 
-    /**
-     * @param string $id
-     * @return CustomField
-     */
-    public function setId($id)
+    public function setId(string $id): self
     {
         $this->id = $id;
         $this->fieldChanged('id');
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getDisplayName()
+    public function getDisplayName(): string
     {
         return $this->display_name;
     }
 
-    /**
-     * @param string $display_name
-     * @return CustomField
-     */
-    public function setDisplayName($display_name)
+    public function setDisplayName(string $display_name): self
     {
         $this->display_name = $display_name;
         $this->fieldChanged('display_name');
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getDescription()
+    public function getDescription(): string
     {
         return $this->description;
     }
 
-    /**
-     * @param string $description
-     * @return CustomField
-     */
-    public function setDescription($description)
+    public function setDescription(string $description): self
     {
         $this->description = $description;
         $this->fieldChanged('description');
         return $this;
     }
 
-    /**
-     * @return boolean
-     */
-    public function isRequired()
+    public function isRequired(): bool
     {
         return $this->required;
     }
 
-    /**
-     * @param boolean $required
-     * @return CustomField
-     */
-    public function setRequired($required)
+    public function setRequired(bool $required): self
     {
         $this->required = $required;
         $this->fieldChanged('required');
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getType()
+    public function getType(): string
     {
         return $this->type;
     }
 
-    /**
-     * @param string $type
-     * @return CustomField
-     */
-    public function setType($type)
+    public function setType(string $type): self
     {
         $this->type = $type;
         $this->fieldChanged('type');
         return $this;
     }
 
-    /**
-     * @return array
-     */
-    public function getEnumValues()
+    public function getEnumValues(): array
     {
         return $this->enum_values;
     }
 
-    /**
-     * @param array $enum_values
-     * @return CustomField
-     */
-    public function setEnumValues(array $enum_values)
+    public function setEnumValues(array $enum_values): self
     {
         $this->enum_values = $enum_values;
         $this->fieldChanged('enum_values');
         return $this;
     }
-
 }

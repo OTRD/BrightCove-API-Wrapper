@@ -4,6 +4,8 @@ namespace Brightcove\Item;
 
 interface ObjectInterface
 {
+    public static function fromJSON(array|string $json): self;
+
     public function postJSON(): array;
 
     /**
@@ -13,6 +15,4 @@ interface ObjectInterface
     public function patchJSON(): array;
 
     public function applyJSON(array $json): void;
-
-    public static function fromJSON(array|string $json): self;
 }

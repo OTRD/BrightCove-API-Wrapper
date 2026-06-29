@@ -5,22 +5,13 @@ namespace Brightcove\Item\Player;
 use Brightcove\Item\ObjectBase;
 
 /**
- * Class UpdateData
- *
- * @package Brightcove\Item\Player
  * @api
  */
 class UpdateData extends ObjectBase
 {
-    /**
-     * @var string
-     */
-    protected $name;
+    protected string $name;
 
-    /**
-     * @var string
-     */
-    protected $description;
+    protected string $description;
 
     public function applyJSON(array $json): void
     {
@@ -32,41 +23,27 @@ class UpdateData extends ObjectBase
     /**
      * @return string
      */
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }
 
-    /**
-     * @param string $name
-     *
-     * @return UpdateData
-     */
-    public function setName($name)
+    public function setName(string $name): self
     {
         $this->name = $name;
         $this->fieldChanged('name');
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getDescription()
+    public function getDescription(): string
     {
         return $this->description;
     }
 
-    /**
-     * @param string $description
-     *
-     * @return UpdateData
-     */
-    public function setDescription($description)
+    public function setDescription(string $description): self
     {
         $this->description = $description;
         $this->fieldChanged('description');
         return $this;
     }
-
 }

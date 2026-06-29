@@ -3,72 +3,33 @@
 namespace Brightcove\Item;
 
 /**
- * Class Playlist
- *
- * @package Brightcove\Item
  * @api
  */
 class Playlist extends ObjectBase
 {
-    /**
-     * @var string
-     */
-    protected $id;
+    protected string $id;
 
-    /**
-     * @var string
-     */
-    protected $account;
+    protected string $account;
 
-    /**
-     * @var string
-     */
-    protected $created_at;
+    protected string $created_at;
 
-    /**
-     * @var string
-     */
-    protected $description;
+    protected string $description;
 
-    /**
-     * @var bool
-     */
-    protected $favorite;
+    protected bool $favorite;
 
-    /**
-     * @var int
-     */
-    protected $limit;
+    protected int $limit;
 
-    /**
-     * @var string
-     */
-    protected $name;
+    protected string $name;
 
-    /**
-     * @var string
-     */
-    protected $reference_id;
+    protected string $reference_id;
 
-    /**
-     * @var string
-     */
-    protected $search;
+    protected string $search;
 
-    /**
-     * @var string
-     */
-    protected $type;
+    protected string $type;
 
-    /**
-     * @var string
-     */
-    protected $updated_at;
+    protected string $updated_at;
 
-    /**
-     * @var array
-     */
-    protected $video_ids;
+    protected array $video_ids;
 
     public function applyJSON(array $json): void
     {
@@ -87,232 +48,147 @@ class Playlist extends ObjectBase
         $this->applyProperty($json, 'video_ids');
     }
 
-    /**
-     * @return string
-     */
-    public function getId()
+    public function getId(): string
     {
         return $this->id;
     }
 
-    /**
-     * @param string $id
-     * @return Playlist
-     */
-    public function setId($id)
+    public function setId(string $id): self
     {
         $this->id = $id;
         $this->fieldChanged('id');
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getAccount()
+    public function getAccount(): string
     {
         return $this->account;
     }
 
-    /**
-     * @param string $account
-     * @return Playlist
-     */
-    public function setAccount($account)
+    public function setAccount(string $account): self
     {
         $this->account = $account;
         $this->fieldChanged('account');
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getCreatedAt()
+    public function getCreatedAt(): string
     {
         return $this->created_at;
     }
 
-    /**
-     * @param string $created_at
-     * @return Playlist
-     */
-    public function setCreatedAt($created_at)
+    public function setCreatedAt(string $created_at): self
     {
         $this->created_at = $created_at;
         $this->fieldChanged('created_at');
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getDescription()
+    public function getDescription(): string
     {
         return $this->description;
     }
 
-    /**
-     * @param string $description
-     * @return Playlist
-     */
-    public function setDescription($description)
+    public function setDescription(string $description): self
     {
         $this->description = $description;
         $this->fieldChanged('description');
         return $this;
     }
 
-    /**
-     * @return boolean
-     */
-    public function isFavorite()
+    public function isFavorite(): bool
     {
         return $this->favorite;
     }
 
-    /**
-     * @param boolean $favorite
-     * @return Playlist
-     */
-    public function setFavorite($favorite)
+    public function setFavorite(bool $favorite): self
     {
         $this->favorite = $favorite;
         $this->fieldChanged('favorite');
         return $this;
     }
 
-    /**
-     * @return int
-     */
-    public function getLimit()
+    public function getLimit(): int
     {
         return $this->limit;
     }
 
-    /**
-     * @param int $limit
-     * @return Playlist
-     */
-    public function setLimit($limit)
+    public function setLimit(int $limit): self
     {
         $this->limit = $limit;
         $this->fieldChanged('limit');
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }
 
-    /**
-     * @param string $name
-     * @return Playlist
-     */
-    public function setName($name)
+    public function setName(string $name): self
     {
         $this->name = $name;
         $this->fieldChanged('name');
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getReferenceId()
+    public function getReferenceId(): string
     {
         return $this->reference_id;
     }
 
-    /**
-     * @param string $reference_id
-     * @return Playlist
-     */
-    public function setReferenceId($reference_id)
+    public function setReferenceId(string $reference_id): self
     {
         $this->reference_id = $reference_id;
         $this->fieldChanged('reference_id');
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getSearch()
+    public function getSearch(): string
     {
         return $this->search;
     }
 
-    /**
-     * @param string $search
-     * @return Playlist
-     */
-    public function setSearch($search)
+    public function setSearch(string $search): self
     {
         $this->search = $search;
         $this->fieldChanged('search');
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getType()
+    public function getType(): string
     {
         return $this->type;
     }
 
-    /**
-     * @param string $type
-     * @return Playlist
-     */
-    public function setType($type)
+    public function setType(string $type): self
     {
         $this->type = $type;
         $this->fieldChanged('type');
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getUpdatedAt()
+    public function getUpdatedAt(): string
     {
         return $this->updated_at;
     }
 
-    /**
-     * @param string $updated_at
-     * @return Playlist
-     */
-    public function setUpdatedAt($updated_at)
+    public function setUpdatedAt(string $updated_at): self
     {
         $this->updated_at = $updated_at;
         $this->fieldChanged('updated_at');
         return $this;
     }
 
-    /**
-     * @return array
-     */
-    public function getVideoIds()
+    public function getVideoIds(): array
     {
         return $this->video_ids;
     }
 
-    /**
-     * @param array $video_ids
-     * @return Playlist
-     */
-    public function setVideoIds(array $video_ids)
+    public function setVideoIds(array $video_ids): self
     {
         $this->video_ids = $video_ids;
         $this->fieldChanged('video_ids');
         return $this;
     }
-
 }

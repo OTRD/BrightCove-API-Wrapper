@@ -22,38 +22,24 @@ class Schedule extends ObjectBase
         $this->applyProperty($json, 'ends_at');
     }
 
-    /**
-     * @return string
-     */
-    public function getStartsAt()
+    public function getStartsAt(): string
     {
         return $this->starts_at;
     }
 
-    /**
-     * @param string $starts_at
-     * @return $this
-     */
-    public function setStartsAt($starts_at)
+    public function setStartsAt(string $starts_at): self
     {
         $this->starts_at = $starts_at;
         $this->fieldChanged('starts_at');
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getEndsAt()
+    public function getEndsAt(): string
     {
         return $this->ends_at;
     }
 
-    /**
-     * @param string $ends_at
-     * @return $this
-     */
-    public function setEndsAt($ends_at)
+    public function setEndsAt(string $ends_at): self
     {
         $this->ends_at = $ends_at;
         $this->fieldChanged('ends_at');

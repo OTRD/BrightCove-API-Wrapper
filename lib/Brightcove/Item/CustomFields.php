@@ -3,27 +3,15 @@
 namespace Brightcove\Item;
 
 /**
- * Class CustomFields
- *
- * @package Brightcove\Item
  * @api
  */
 class CustomFields extends ObjectBase
 {
-    /**
-     * @var int
-     */
-    protected $max_custom_fields;
+    protected int $max_custom_fields;
 
-    /**
-     * @var CustomField[]
-     */
-    protected $custom_fields;
+    protected array $custom_fields;
 
-    /**
-     * @var CustomField[]
-     */
-    protected $standard_fields;
+    protected array $standard_fields;
 
     public function applyJSON(array $json): void
     {
@@ -33,57 +21,36 @@ class CustomFields extends ObjectBase
         $this->applyProperty($json, 'standard_fields', null, CustomField::class, true);
     }
 
-    /**
-     * @return int
-     */
-    public function getMaxCustomFields()
+    public function getMaxCustomFields(): int
     {
         return $this->max_custom_fields;
     }
 
-    /**
-     * @param int $max_custom_fields
-     * @return CustomFields
-     */
-    public function setMaxCustomFields($max_custom_fields)
+    public function setMaxCustomFields(int $max_custom_fields): self
     {
         $this->max_custom_fields = $max_custom_fields;
         $this->fieldChanged('max_custom_fields');
         return $this;
     }
 
-    /**
-     * @return CustomField[]
-     */
-    public function getCustomFields()
+    public function getCustomFields(): array
     {
         return $this->custom_fields;
     }
 
-    /**
-     * @param CustomField[] $custom_fields
-     * @return CustomFields
-     */
-    public function setCustomFields(array $custom_fields)
+    public function setCustomFields(array $custom_fields): self
     {
         $this->custom_fields = $custom_fields;
         $this->fieldChanged('custom_fields');
         return $this;
     }
 
-    /**
-     * @return CustomField[]
-     */
-    public function getStandardFields()
+    public function getStandardFields(): array
     {
         return $this->standard_fields;
     }
 
-    /**
-     * @param CustomField[] $standard_fields
-     * @return CustomFields
-     */
-    public function setStandardFields(array $standard_fields)
+    public function setStandardFields(array $standard_fields): self
     {
         $this->standard_fields = $standard_fields;
         $this->fieldChanged('standard_fields');

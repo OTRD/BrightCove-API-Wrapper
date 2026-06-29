@@ -5,17 +5,11 @@ namespace Brightcove\Item\Video;
 use Brightcove\Item\ObjectBase;
 
 /**
- * Class TextTrackSource
- *
- * @package Brightcove\Item\Video
  * @api
  */
 class TextTrackSource extends ObjectBase
 {
-    /**
-     * @var string
-     */
-    protected $src;
+    protected string $src;
 
     public function applyJSON(array $json): void
     {
@@ -23,19 +17,12 @@ class TextTrackSource extends ObjectBase
         $this->applyProperty($json, 'src');
     }
 
-    /**
-     * @return string
-     */
-    public function getSrc()
+    public function getSrc(): string
     {
         return $this->src;
     }
 
-    /**
-     * @param string $src
-     * @return TextTrackSource
-     */
-    public function setSrc($src)
+    public function setSrc(string $src): self
     {
         $this->src = $src;
         $this->fieldChanged('src');
