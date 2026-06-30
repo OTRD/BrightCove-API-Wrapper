@@ -11,9 +11,9 @@ use Brightcove\Item\ObjectBase;
  */
 class Images extends ObjectBase
 {
-    protected Image $thumbnail;
+    protected array $thumbnail;
 
-    protected Image $poster;
+    protected array $poster;
 
     public function applyJSON(array $json): void
     {
@@ -22,24 +22,24 @@ class Images extends ObjectBase
         $this->applyProperty($json, 'poster');
     }
 
-    public function getThumbnail(): Image
+    public function getThumbnail(): array
     {
         return $this->thumbnail;
     }
 
-    public function setThumbnail(Image $thumbnail): self
+    public function setThumbnail(array $thumbnail): self
     {
         $this->thumbnail = $thumbnail;
         $this->fieldChanged('thumbnail');
         return $this;
     }
 
-    public function getPoster(): Image
+    public function getPoster(): array
     {
         return $this->poster;
     }
 
-    public function setPoster(Image $poster): self
+    public function setPoster(array $poster): self
     {
         $this->poster = $poster;
         $this->fieldChanged('poster');
