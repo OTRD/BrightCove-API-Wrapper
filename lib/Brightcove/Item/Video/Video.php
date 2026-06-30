@@ -50,7 +50,7 @@ class Video extends ObjectBase
      */
     protected array $geo;
 
-    protected array $images;
+    protected Images $images;
 
     protected Link $link;
 
@@ -112,7 +112,7 @@ class Video extends ObjectBase
         $this->applyProperty($json, 'folder_id');
         $this->applyProperty($json, 'geo', null, GEO::class);
         $this->applyProperty($json, 'has_digital_master');
-        $this->applyProperty($json, 'images', null, Image::class, true);
+        $this->applyProperty($json, 'images', null, Images::class);
         $this->applyProperty($json, 'link', null, Link::class);
         $this->applyProperty($json, 'long_description');
         $this->applyProperty($json, 'name');
@@ -260,12 +260,12 @@ class Video extends ObjectBase
         return $this;
     }
 
-    public function getImages(): array
+    public function getImages(): Images
     {
         return $this->images;
     }
 
-    public function setImages(array $images): self
+    public function setImages(Images $images): self
     {
         $this->images = $images;
         $this->fieldChanged('images');
