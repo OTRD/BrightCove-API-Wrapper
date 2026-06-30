@@ -9,29 +9,29 @@ use Brightcove\Item\ObjectBase;
  */
 class Source extends ObjectBase
 {
-    protected string $id;
+    protected ?string $id = null;
 
-    protected string $app_name;
+    protected ?string $app_name = null;
 
-    protected string $stream_name;
+    protected ?string $stream_name = null;
 
-    protected string $codec;
+    protected ?string $codec = null;
 
-    protected string $container;
+    protected ?string $container = null;
 
-    protected int $encoding_rate;
+    protected ?int $encoding_rate = null;
 
-    protected int $duration;
+    protected ?int $duration = null;
 
-    protected int $height;
+    protected ?int $height = null;
 
-    protected int $width;
+    protected ?int $width = null;
 
-    protected int $size;
+    protected ?int $size = null;
 
-    protected string $uploaded_at;
+    protected ?string $uploaded_at = null;
 
-    protected string $src;
+    protected ?string $src = null;
 
     public function applyJSON(array $json): void
     {
@@ -50,7 +50,7 @@ class Source extends ObjectBase
         $this->applyProperty($json, 'src');
     }
 
-    public function getSrc(): string
+    public function getSrc(): ?string
     {
         return $this->src;
     }
@@ -62,7 +62,7 @@ class Source extends ObjectBase
         return $this;
     }
 
-    public function getId(): string
+    public function getId(): ?string
     {
         return $this->id;
     }
@@ -74,7 +74,7 @@ class Source extends ObjectBase
         return $this;
     }
 
-    public function getAppName(): string
+    public function getAppName(): ?string
     {
         return $this->app_name;
     }
@@ -86,7 +86,7 @@ class Source extends ObjectBase
         return $this;
     }
 
-    public function getStreamName(): string
+    public function getStreamName(): ?string
     {
         return $this->stream_name;
     }
@@ -98,7 +98,7 @@ class Source extends ObjectBase
         return $this;
     }
 
-    public function getCodec(): string
+    public function getCodec(): ?string
     {
         return $this->codec;
     }
@@ -110,7 +110,7 @@ class Source extends ObjectBase
         return $this;
     }
 
-    public function getContainer(): string
+    public function getContainer(): ?string
     {
         return $this->container;
     }
@@ -122,7 +122,7 @@ class Source extends ObjectBase
         return $this;
     }
 
-    public function getEncodingRate(): int
+    public function getEncodingRate(): ?int
     {
         return $this->encoding_rate;
     }
@@ -134,7 +134,7 @@ class Source extends ObjectBase
         return $this;
     }
 
-    public function getDuration(): int
+    public function getDuration(): ?int
     {
         return $this->duration;
     }
@@ -146,7 +146,7 @@ class Source extends ObjectBase
         return $this;
     }
 
-    public function getHeight(): int
+    public function getHeight(): ?int
     {
         return $this->height;
     }
@@ -158,7 +158,7 @@ class Source extends ObjectBase
         return $this;
     }
 
-    public function getWidth(): int
+    public function getWidth(): ?int
     {
         return $this->width;
     }
@@ -170,7 +170,7 @@ class Source extends ObjectBase
         return $this;
     }
 
-    public function getSize(): int
+    public function getSize(): ?int
     {
         return $this->size;
     }
@@ -182,7 +182,7 @@ class Source extends ObjectBase
         return $this;
     }
 
-    public function getUploadedAt(): string
+    public function getUploadedAt(): ?string
     {
         return $this->uploaded_at;
     }
