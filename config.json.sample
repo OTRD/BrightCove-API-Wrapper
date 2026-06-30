@@ -1,7 +1,7 @@
 {
-  "client_id": "xxx",
-  "client_secret": "xxx",
-  "account": "nnn",
-  "callback_host": "localhost:8888",
-  "callback_addr_remote": "http://example.com:8888"
+  "clientId": "xxx",
+  "clientSecret": "xxx",
+  "accountId": "nnn",
+  "callbackHost": "localhost:8888",
+  "callbackAddrRemote": "http://example.com:8888"
 }
